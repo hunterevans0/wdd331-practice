@@ -28,3 +28,16 @@ a {
 a:hover {
     color: var(--color-primary-hover);
 }
+
+h1 {
+    color: var(--color-primary);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
