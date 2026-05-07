@@ -1,0 +1,68 @@
+/* Card components: .card-group, .cards grid, .card, .card-tag, .card-footer
+   Use native nesting. Reference tokens with var(). */
+
+.card-group {
+    display: grid;
+    gap: clamp(var(--spacing-small), 2vw, var(--spacing-medium));
+    margin-bottom: var(--spacing-large);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+    gap: clamp(1rem, 2vw, var(--spacing-medium));
+}
+
+.card {
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: clamp(1rem, 2vw, var(--spacing-medium));
+    display: grid;
+    gap: 1rem;
+
+    .card-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        padding: 0.35rem 0.75rem;
+        border-radius: calc(var(--border-radius) / 2);
+        background-color: var(--color-primary);
+        color: white;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    h3 {
+        margin: 0;
+        color: var(--color-primary);
+    }
+
+    p {
+        margin: 0;
+        color: var(--color-text);
+        line-height: 1.6;
+    }
+
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font-size: 0.95rem;
+        color: rgba(0, 0, 0, 0.7);
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+
+            &:hover,
+            &:focus-visible {
+                text-decoration: underline;
+            }
+        }
+    }
+}
