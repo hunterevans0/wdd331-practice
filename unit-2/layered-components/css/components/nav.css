@@ -1,0 +1,47 @@
+/* Navigation component: .site-nav and its links
+   Style the active link using aria-current. */
+
+.site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-small);
+    padding: var(--spacing-medium);
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: var(--border-radius);
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--color-accent);
+        }
+    }
+
+    a:not([aria-current="page"]) {
+        opacity: 0.95;
+    }
+
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-small);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            display: inline;
+        }
+    }
+
+    a[aria-current="page"] {
+        text-decoration: underline;
+        text-decoration-color: var(--color-accent);
+    }
+}

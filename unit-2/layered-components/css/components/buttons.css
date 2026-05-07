@@ -1,0 +1,62 @@
+/* Button components: .btn, .primary, .secondary, disabled state
+   Use native nesting for pseudo-classes and modifiers. */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--color-primary);
+    font-family: inherit;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+
+    &:hover,
+    &:focus-visible {
+        transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.25);
+    }
+
+    &:not(:disabled) {
+        box-shadow: 0 0 0 transparent;
+    }
+
+    &.primary {
+        background-color: var(--color-primary);
+        color: white;
+        border-color: var(--color-primary);
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--color-accent);
+        }
+    }
+
+    &.secondary {
+        background-color: transparent;
+        color: var(--color-primary);
+        border-color: var(--color-primary);
+
+        &:hover,
+        &:focus-visible {
+            background-color: rgba(0, 102, 204, 0.08);
+        }
+    }
+
+    &:disabled,
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
