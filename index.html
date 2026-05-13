@@ -3,39 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunter Evans - Practice Site</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>Hunter Evans — WDD 331R Advanced CSS</title>
+    <link rel="stylesheet" href="dist/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Hunter Evans</h1>
-        <nav>
-            <h2>Assignments</h2>
-            <ul>
-                <li>
-                    <a href="unit-1/custom-properties/index.html">
-                        Custom Properties and Nesting
-                    </a>
-                </li>
-                <li>
-                    <a href="unit-2/layered-components/index.html">
-                        Layered Components
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <p>I am a software engineering major at BYUI. I enjoy 
-            camping and fishing. I also enjoy video games and 
-            movies. The purpose of this site is to teach the 
-            programmer (me) how to write advanced CSS.
-        </p>
-    </main>
-    
-    <footer>
-        <p>2026 My Website.</p>
-    </footer>
+    <div class="page-shell">
+        <header class="site-hero">
+            <p class="eyebrow">WDD 331R Advanced CSS</p>
+            <h1>Hunter Evans</h1>
+            <p class="hero-copy">A responsive landing page built with shared tokens, layered styles, and reusable components.</p>
+        </header>
+
+        <main>
+            <section class="feature-grid">
+                <article class="site-card">
+                    <h2>Completed Assignments</h2>
+                    <ul class="card-list">
+                        <li><a href="unit-1/custom-properties/index.html">Custom Properties and Nesting</a></li>
+                        <li><a href="unit-2/layered-components/index.html">Layered Components</a></li>
+                    </ul>
+                </article>
+
+                <article class="site-card">
+                    <h2>Choose Topic Example</h2>
+                    <p>This site has a choose-topic style page in the Layered Components assignment. The landing page uses cards, spacing, typography, and shadows from the shared token system.</p>
+                    <a class="card-link" href="unit-2/layered-components/index.html">View Layered Components</a>
+                </article>
+            </section>
+
+            <section class="site-card about-card">
+                <h2>About</h2>
+                <p>I am a software engineering major at BYUI. I enjoy camping, fishing, video games, and movies. This site is my weekly progress tracker for learning advanced CSS techniques while practicing layout, components, and design tokens.</p>
+            </section>
+
+            <section class="overview site-card">
+                <h2>Why this practice site?</h2>
+                <p>This homepage uses three token categories: color, spacing, and typography, plus radius and shadow for visual structure. The component layer keeps card styling separated and reusable across the site.</p>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>© 2026 Hunter Evans — WDD 331R Advanced CSS</p>
+        </footer>
+    </div>
 </body>
 </html>
