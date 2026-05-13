@@ -1,0 +1,30 @@
+{
+  "name": "wdd331-practice",
+  "version": "1.0.0",
+  "description": "**Student:** Hunter Evans\r **Semester:** Spring 2026\r **Live Site:** [View Site](https://hunterevans0.github.io/wdd331-practice/)\r ## About\r This repository is my Practice Site for WDD 331R: Advanced CSS.\r Each week I add new pages and styles as I work through the course\r assignments. The site deploys automatically to GitHub Pages on\r every push to main.\r ## Pages\r - [Home](index.html)\r - [Custom Properties and Nesting](unit-1/custom-properties/index.html)\r - [Layered Components](unit-2/layered-components/index.html)",
+  "homepage": "https://github.com/hunterevans0/wdd331-practice#readme",
+  "bugs": {
+    "url": "https://github.com/hunterevans0/wdd331-practice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunterevans0/wdd331-practice.git"
+  },
+  "license": "ISC",
+  "author": "Hunter Evans",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "node -e \"require('fs').mkdirSync('dist', { recursive: true })\" && postcss css/main.css -o dist/styles.css -u postcss-import -u postcss-nesting -u cssnano",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "postcss": "^8.5.14"
+  },
+  "devDependencies": {
+    "cssnano": "^6.0.0",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.0.0",
+    "postcss-nesting": "^13.0.0"
+  }
+}
