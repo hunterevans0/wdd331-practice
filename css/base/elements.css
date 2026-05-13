@@ -1,0 +1,64 @@
+/* Base element styles: body, headings, links, lists.
+   No classes here, only bare HTML element selectors.
+   Reference tokens with var(). */
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height);
+    color: var(--color-text);
+    background-color: var(--color-background);
+    min-height: 100vh;
+    padding: clamp(var(--spacing-md), 2vw, var(--spacing-lg));
+}
+
+main {
+    width: min(90vw, 72rem);
+    margin: 0 auto;
+    padding-bottom: var(--spacing-lg);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--color-primary);
+    line-height: 1.1;
+    margin: 0 0 var(--spacing-md);
+}
+
+p {
+    margin: 0 0 var(--spacing-md);
+    max-width: 58rem;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li + li {
+    margin-top: var(--spacing-sm);
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 180ms ease;
+
+    &:hover {
+        color: var(--color-accent);
+        text-decoration: underline;
+    }
+}
+
+.page-shell {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+footer {
+    color: var(--color-muted);
+    text-align: center;
+    padding-top: var(--spacing-md);
+}

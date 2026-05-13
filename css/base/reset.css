@@ -1,0 +1,10 @@
+/* Reset: minimal, opinionated reset to start fresh.
+   Box model, margin, and padding normalized. */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
