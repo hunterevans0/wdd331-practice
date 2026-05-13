@@ -15,6 +15,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "build": "npm run build:css",
     "build:css": "node -e \"require('fs').mkdirSync('dist', { recursive: true })\" && postcss css/main.css -o dist/styles.css -u postcss-import -u postcss-nesting -u cssnano",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
