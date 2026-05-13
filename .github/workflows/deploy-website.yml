@@ -21,8 +21,8 @@ jobs:
       - name: Build CSS
         run: npm run build
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: hunterevans0/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: dist
           branch: website
           clean: true
