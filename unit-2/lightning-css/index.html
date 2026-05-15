@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightning CSS Setup</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            color: #111;
+            background: #f7f7f7;
+        }
+        .page-shell {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        header {
+            margin-bottom: 2rem;
+        }
+        .eyebrow {
+            font-size: .9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .15em;
+            color: #555;
+            margin-bottom: .5rem;
+        }
+        h1, h2, h3 {
+            margin: 0 0 1rem;
+            color: #111;
+        }
+        p, li {
+            margin: 0 0 1rem;
+        }
+        ul {
+            padding-left: 1.25rem;
+            margin: 0 0 1rem;
+        }
+        code, pre {
+            font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: .75rem;
+        }
+        pre {
+            overflow-x: auto;
+        }
+        .section-card {
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.06);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        nav a {
+            color: #1d4ed8;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <nav><a href="../../index.html">&larr; Back to Home</a></nav>
+        <header>
+            <p class="eyebrow">BYU–Idaho • WDD 331R • Advanced CSS</p>
+            <h1>Lightning CSS Setup</h1>
+            <p>In the Build Tooling reading, you learned why CSS build tools exist and how Lightning CSS works as a single, all-in-one compiler. This page is the hands-on follow-up.</p>
+        </header>
+
+        <section class="section-card">
+            <h2>Overview</h2>
+            <p>Install Lightning CSS, run a build command that bundles, prefixes, and minifies your CSS in one pass, and verify the output.</p>
+            <p>If you have limited experience with Node.js or the command line, do not worry. This page walks through every step. One of the advantages of Lightning CSS is how little setup it requires compared to plugin-based tools.</p>
+            <p>By the end you will have a working build that you can reuse in future assignments.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Starter Files</h2>
+            <p>Download the CSS Bundling starter files and extract them into your Practice Site at <code>unit-2/lightning-css-demo/</code>. The zip contains an <code>index.html</code> page and a <code>css/</code> directory with the layered architecture you learned in the CSS Architecture reading. All the CSS is already written and working.</p>
+            <p>Your job is not to write CSS on this page. It is to set up a build tool that bundles it.</p>
+            <pre>[unit-2/lightning-css-demo]
+├── css/
+│   ├── base/
+│   │   ├── elements.css
+│   │   └── reset.css
+│   ├── components/
+│   │   └── card.css
+│   ├── layout/
+│   │   ├── chrome.css
+│   │   └── primary.css
+│   ├── tokens/
+│   │   ├── colors.css
+│   │   └── variables.css
+│   ├── utilities/
+│   │   └── utilities.css
+│   └── main.css
+└── index.html</pre>
+        </section>
+
+        <section class="section-card">
+            <h2>Installing Node.js</h2>
+            <p>Lightning CSS is distributed as an npm package, so you need Node.js installed. If you already have Node from a previous course or project, you can skip this section.</p>
+            <p>Open your terminal and run:</p>
+            <pre>node --version</pre>
+            <p>If you see a version number like <code>v20.x.x</code> or higher, you are good to go. If the command is not recognized, download and install the LTS version from <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>. After installing, close and reopen your terminal, then verify again.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Initializing the Project</h2>
+            <p>Navigate to your <code>unit-2/lightning-css-demo/</code> directory in the terminal. Create a <code>package.json</code> file by running:</p>
+            <pre>npm init -y</pre>
+            <p>The <code>-y</code> flag accepts all the defaults so you do not have to answer a series of questions. If you prefer <code>pnpm</code> and already have it installed, you may use <code>pnpm init</code> instead.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Add a <code>.gitignore</code> File</h2>
+            <p>Before you install anything, create a <code>.gitignore</code> file in <code>unit-2/lightning-css-demo/</code> with this content:</p>
+            <pre>node_modules/</pre>
+            <p>The <code>node_modules/</code> directory is where Node stores installed packages. It can contain thousands of files and should never be committed to your repository. The <code>.gitignore</code> file tells Git to skip it. If you already have a root <code>.gitignore</code> covering <code>node_modules/</code>, that's fine, but adding one here is a good habit.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Installing Lightning CSS</h2>
+            <p>Install two packages: Lightning CSS itself, and a file watcher for automatic rebuilds during development.</p>
+            <pre>npm install --save-dev lightningcss-cli chokidar-cli</pre>
+            <p>If you are using <code>pnpm</code>, replace <code>npm install</code> with <code>pnpm add</code>.</p>
+            <p>Unlike PostCSS, which relies on a pipeline of separate plugins, Lightning CSS handles bundling, vendor prefixing, minification, and syntax lowering in one package. There is no config file to create and no plugins to choose between. Everything is controlled by command-line flags.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Adding a Build Script</h2>
+            <p>Open your <code>package.json</code> and replace the default <code>test</code> script with this build command:</p>
+            <pre>"scripts": {
+    "build": "lightningcss --bundle --minify --targets \"&gt;= 0.25%\" css/main.css -o dist/styles.css",
+    "watch": "chokidar \"css/**/*.css\" -c \"npm run build\" --debounce 600"
+}</pre>
+            <p>This single command does everything. Here is what each flag does:</p>
+            <ul>
+                <li><strong>--bundle</strong>: resolves all <code>@import</code> statements and inlines the imported files into one output.</li>
+                <li><strong>--minify</strong>: strips whitespace, shortens values, merges compatible rules, and removes comments.</li>
+                <li><strong>--targets "&gt;= 0.25%"</strong>: supports browsers with at least 0.25% global usage, adding prefixes and lowering modern syntax when needed.</li>
+                <li><strong>-o dist/styles.css</strong>: writes the bundled output to the <code>dist/</code> directory.</li>
+            </ul>
+            <p>Now run the build:</p>
+            <pre>npm run build</pre>
+            <p>If everything is set up correctly, you will see a new <code>dist/</code> directory containing <code>styles.css</code>. Open that file and you should see all imports inlined, vendor prefixes added where needed, and the content minified.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Switching to the Bundled File</h2>
+            <p>Update your <code>index.html</code> stylesheet link to use the bundled output instead of the source entry file:</p>
+            <pre>&lt;!-- Before: multi-file with @import --&gt;
+&lt;link rel="stylesheet" href="css/main.css"&gt;
+&lt;!-- After: single bundled file --&gt;
+&lt;link rel="stylesheet" href="dist/styles.css"&gt;</pre>
+            <p>Refresh the page. It should look exactly the same, but the browser network panel should show a single request for <code>styles.css</code> instead of separate CSS files.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Understanding What the Flags Did</h2>
+            <p>Try removing flags one at a time and rebuilding.</p>
+            <h3>Without <code>--minify</code></h3>
+            <p>The output will still be bundled and prefixed, but it remains readable and retains whitespace and comments.</p>
+            <h3>Without <code>--bundle</code></h3>
+            <p>The output contains only the minified contents of <code>main.css</code>, with <code>@import</code> statements still present. The browser would still need to fetch those files separately.</p>
+            <h3>Without <code>--targets</code></h3>
+            <p>Lightning CSS skips vendor prefixing and syntax lowering. Modern CSS ships as-is, which may be fine for cutting-edge browsers but less compatible with older ones.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Development Workflow</h2>
+            <p>You now have two versions of your CSS: the source files in <code>css/</code> and the bundled output in <code>dist/</code>. Running <code>npm run build</code> manually every time is tedious, so use the watch script instead.</p>
+            <p>Lightning CSS does not have built-in watch mode, but <code>chokidar-cli</code> does. It watches your files and reruns the command when a change occurs.</p>
+            <pre>npm run watch</pre>
+            <p>Leave it running while you edit CSS. Every time you save a file inside <code>css/</code>, chokidar waits 600ms and rebuilds automatically.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Using <code>npx</code> Without a Local Install</h2>
+            <p>If you want to run Lightning CSS once without installing it locally, use:</p>
+            <pre>npx lightningcss-cli --bundle --minify --targets "&gt;= 0.25%" css/main.css -o dist/styles.css</pre>
+            <p>This is useful for quick experiments, but a local <code>package.json</code> is more reliable for a real project.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Comparing Lightning CSS to PostCSS</h2>
+            <p>Both tools can produce the same bundled stylesheet, but their setup differs:</p>
+            <ul>
+                <li>PostCSS requires multiple plugin packages and a config file. Each plugin handles one job.</li>
+                <li>Lightning CSS requires only two packages and zero config files. Bundling, prefixing, minification, and syntax lowering are all built in.</li>
+            </ul>
+            <p>PostCSS gives more control and plugin flexibility. Lightning CSS gives speed and simplicity.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Final File Structure</h2>
+            <pre>[unit-2/lightning-css-demo]
+├── css/
+│   ├── base/
+│   │   ├── elements.css
+│   │   └── reset.css
+│   ├── components/
+│   │   └── card.css
+│   ├── layout/
+│   │   ├── chrome.css
+│   │   └── primary.css
+│   ├── tokens/
+│   │   ├── colors.css
+│   │   └── variables.css
+│   ├── utilities/
+│   │   └── utilities.css
+│   └── main.css
+├── dist/
+│   └── styles.css
+├── node_modules/
+├── .gitignore
+├── index.html
+└── package.json</pre>
+            <p>Notice there is no config file. One fewer file to maintain compared to a PostCSS setup. The file watcher is configured entirely in <code>package.json</code>.</p>
+        </section>
+
+        <section class="section-card">
+            <h2>Resources</h2>
+            <ul>
+                <li>Lightning CSS – official site and documentation</li>
+                <li>Lightning CSS Bundling – how @import resolution works</li>
+                <li>Lightning CSS Minification – what the minifier optimizes</li>
+                <li>Lightning CSS Transpilation – syntax lowering and vendor prefixing</li>
+                <li>Lightning CSS Playground – try it in the browser</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <h2>Teaching Video Checklist</h2>
+            <ul>
+                <li>What Lightning CSS is and how it differs from plugin-based tools like PostCSS.</li>
+                <li>A live walkthrough of setup: <code>npm init</code>, installing the package, adding the build script, and running it.</li>
+                <li>What each CLI flag does (<code>--bundle</code>, <code>--minify</code>, <code>--targets</code>).</li>
+                <li>The difference between source files in <code>css/</code> and bundled output in <code>dist/</code>.</li>
+                <li>The development workflow: use <code>npm run watch</code> and when to use <code>npm run build</code>.</li>
+                <li>The importance of <code>.gitignore</code> for keeping <code>node_modules/</code> out of the repository.</li>
+            </ul>
+        </section>
+
+        <section class="section-card">
+            <a href="../../index.html">Back to Home</a>
+        </section>
+
+        <footer>
+            <p>WDD 331R • Advanced CSS<br>© 2026 BYU–Idaho CSE Department. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
