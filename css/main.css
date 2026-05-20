@@ -21,6 +21,7 @@
 /* @import url('./layout/primary.css'); */
 
 /* Components */
+@import url('./components/theme-toggle.css');
 @import url('./components/cards.css');
 
 /* Utilities */

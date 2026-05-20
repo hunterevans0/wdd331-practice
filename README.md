@@ -92,6 +92,12 @@ All design decisions are centralized in token files:
 - `--color-accent` — Accent/highlight color (#ff7b00)
 - `--color-muted` — Muted/secondary text (#999999)
 
+## Dark Mode
+
+This site supports light, dark, and system color schemes. The theme toggle control is in the top header and preferences are persisted to `localStorage`. Color tokens and theme behavior live in `css/tokens/colors.css` and general tokens live in `css/tokens/variables.css`.
+
+The theme persistence script is `js/theme-preference.js` and should be loaded in the document head before the stylesheet to prevent flashes of the wrong theme.
+
 ### Spacing, Typography, and Effects (`css/tokens/variables.css`)
 - **Spacing:** `--spacing-sm` (0.5rem), `--spacing-md` (1rem), `--spacing-lg` (2rem)
 - **Typography:** `--font-family`, `--font-size-base`, `--line-height`
