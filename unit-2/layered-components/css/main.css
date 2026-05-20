@@ -1,7 +1,7 @@
 @layer tokens, base, layout, components, utilities;
 
-@import url('tokens/colors.css') layer(tokens);
-@import url('tokens/variables.css') layer(tokens);
+@import url('../../../css/tokens/colors.css') layer(tokens);
+@import url('../../../css/tokens/variables.css') layer(tokens);
 
 @import url('base/reset.css') layer(base);
 @import url('base/elements.css') layer(base);
@@ -13,5 +13,6 @@
 @import url('components/forms.css') layer(components);
 @import url('components/nav.css') layer(components);
 @import url('components/temples.css') layer(components);
+@import url('../../../css/components/theme-toggle.css') layer(components);
 
 @import url('utilities/utilities.css') layer(utilities);
