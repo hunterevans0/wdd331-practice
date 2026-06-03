@@ -1,0 +1,182 @@
+/* Editorial layout — unit-4/grid-layouts/editorial.html
+   Lays out .editorial-page .layout with grid-template-areas and switches
+   from a single stacked column to a two-column article + sidebar layout at
+   a wider breakpoint. Tokens come from the shared dist/styles.css bundle.
+
+   Choose topic applied here: Logical Properties. Every margin, padding, and
+   border below uses its flow-relative (block/inline) equivalent so the page
+   would adapt correctly to a right-to-left writing mode. */
+
+/* ----- Back-to-home button ----- */
+.editorial-page .back-home {
+    display: inline-block;
+    max-inline-size: min(95vw, 75rem);
+    margin-inline: auto;
+    margin-block-end: var(--spacing-md);
+    padding-block: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-link);
+    font-weight: 600;
+}
+
+.editorial-page .back-home:hover {
+    color: var(--color-link-hover);
+    border-color: var(--color-border-strong);
+    text-decoration: none;
+}
+
+/* ----- Page header (sits outside .layout, styled independently) ----- */
+.editorial-page header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    max-inline-size: min(95vw, 75rem);
+    margin-inline: auto;
+    margin-block-end: var(--spacing-lg);
+    padding-block: var(--spacing-md);
+    padding-inline: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.editorial-page header > a {
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+}
+
+/* The nav links should sit on one line. Flexbox is the right tool here: it is
+   a one-dimensional row of items that should flow naturally and wrap if the
+   viewport gets too narrow. Grid would force me to declare tracks for a list
+   whose length can change; flex just lines them up with a gap. */
+.editorial-page nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.editorial-page nav a {
+    font-weight: 600;
+}
+
+/* ----- The grid: .layout ----- */
+/* Small screens: a single column. Main content stacks above the sidebar. */
+.editorial-page .layout {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-areas:
+        "main"
+        "sidebar";
+    max-inline-size: min(95vw, 75rem);
+    margin-inline: auto;
+}
+
+.editorial-page main {
+    grid-area: main;
+    /* Override the shared base `main` width/margin so it fills its grid cell. */
+    inline-size: auto;
+    max-inline-size: none;
+    margin: 0;
+    padding-block-end: 0;
+}
+
+.editorial-page aside {
+    grid-area: sidebar;
+    display: grid;
+    gap: var(--spacing-lg);
+    align-content: start;
+}
+
+/* Wider screens: two columns via grid-template-areas, sidebar fixed-width
+   on the right, article taking the remaining space. */
+@media (min-width: 50rem) {
+    .editorial-page .layout {
+        grid-template-areas: "main sidebar";
+        grid-template-columns: minmax(0, 1fr) 18rem;
+    }
+}
+
+/* ----- Article styling ----- */
+.editorial-page article {
+    padding-block: var(--spacing-lg);
+    padding-inline: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.editorial-page .byline {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin-block-end: var(--spacing-lg);
+}
+
+.editorial-page article h2 {
+    margin-block-start: var(--spacing-lg);
+}
+
+.editorial-page blockquote {
+    margin-block: var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+    padding-inline-start: var(--spacing-lg);
+    border-inline-start: var(--spacing-xs) solid var(--color-accent);
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.editorial-page blockquote p {
+    margin-block-end: 0;
+}
+
+/* ----- Sidebar styling ----- */
+.editorial-page aside section {
+    padding-block: var(--spacing-md);
+    padding-inline: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.editorial-page aside h2 {
+    font-size: var(--font-size-md);
+    margin-block-end: var(--spacing-md);
+}
+
+/* Topic tags: a horizontal, wrapping set of pills. Flexbox again, for the
+   same one-dimensional reasons as the nav. */
+.editorial-page .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+}
+
+.editorial-page .tags li {
+    margin-block-start: 0; /* cancel the shared `li + li` stacking margin */
+    padding-block: var(--spacing-xs);
+    padding-inline: var(--spacing-sm);
+    background-color: var(--accent-200);
+    color: var(--accent-800);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+}
+
+/* ----- Page footer (sits outside .layout, styled independently) ----- */
+.editorial-page > footer {
+    max-inline-size: min(95vw, 75rem);
+    margin-inline: auto;
+    margin-block-start: var(--spacing-lg);
+    padding-block: var(--spacing-md);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-align: center;
+}
