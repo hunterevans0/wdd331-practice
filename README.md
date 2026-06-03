@@ -37,6 +37,8 @@ css/
 - **[Home](index.html)** — Landing page showcasing the site architecture and completed assignments
 - **[Custom Properties and Nesting](unit-1/custom-properties/index.html)** — Unit 1 assignment exploring CSS custom properties and native nesting
 - **[Layered Components](unit-2/layered-components/index.html)** — Unit 2 assignment demonstrating the layered component architecture
+- **[Editorial Grid Layout](unit-4/grid-layouts/editorial.html)** — Unit 4 assignment building a responsive article layout with `grid-template-areas`
+- **[Responsive Card Grid](unit-4/grid-layouts/cards.html)** — Unit 4 assignment building a fluid card grid with `auto-fit` and `minmax()`
 
 ### Build Output
 

@@ -1,0 +1,116 @@
+/* Responsive card grid — unit-4/grid-layouts/cards.html
+   Makes .articles-page .card-grid a fluid auto-fit / minmax() grid where the
+   browser decides how many columns fit. Tokens come from dist/styles.css.
+
+   Choose topic applied here: Logical Properties. Spacing, sizing, and borders
+   use flow-relative (block/inline) properties throughout. */
+
+/* ----- Back-to-home button ----- */
+.articles-page .back-home {
+    display: inline-block;
+    margin-block-end: var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-link);
+    font-weight: 600;
+}
+
+.articles-page .back-home:hover {
+    color: var(--color-link-hover);
+    border-color: var(--color-border-strong);
+    text-decoration: none;
+}
+
+/* ----- Page header (styled independently of the grid) ----- */
+.articles-page header {
+    text-align: center;
+    margin-block-end: var(--spacing-xl);
+}
+
+.articles-page header p {
+    max-inline-size: none;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-lg);
+}
+
+/* ----- The responsive grid ----- */
+/* auto-fit packs as many columns as will fit; each is at least 240px and
+   every column shares leftover space equally via the 1fr max.
+
+   The min() safety pattern — min(240px, 100%) — guarantees the track can
+   shrink below 240px when the viewport itself is narrower than 240px, so a
+   single column never forces the grid wider than its container. Without it,
+   minmax(240px, 1fr) would overflow on very small screens. */
+.articles-page .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* ----- Card ----- */
+/* The card is a vertical flex column: placeholder on top, content below.
+   Making it a flex column is what lets the read-more link be pushed to the
+   bottom (see below). */
+.articles-page .card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden; /* clip the placeholder to the rounded corners */
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.articles-page .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+/* The first div in each card is the image placeholder: a fixed-height band. */
+.articles-page .card > div[aria-hidden="true"] {
+    block-size: 160px;
+    background-image: linear-gradient(135deg, var(--accent-400), var(--accent-600));
+}
+
+/* The second div holds the card body. It is itself a flex column that grows
+   to fill the remaining card height. Because the cards in a row stretch to a
+   shared height, making this body grow lets the link inside it align to the
+   bottom across cards of differing text length. */
+.articles-page .card > div:not([aria-hidden]) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-block: var(--spacing-md) var(--spacing-lg);
+    padding-inline: var(--spacing-lg);
+}
+
+.articles-page .card h2 {
+    font-size: var(--font-size-md);
+    margin-block-end: var(--spacing-sm);
+}
+
+.articles-page .card p {
+    max-inline-size: none;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* Push the read-more link to the bottom of the card. The auto block-start
+   margin absorbs all the free space the flex column gives it, so the link
+   sits flush at the bottom no matter how short the paragraph above is. This
+   is the CSS-only solution to aligning links across uneven cards. */
+.articles-page .card a {
+    margin-block-start: auto;
+    align-self: start;
+    font-weight: 600;
+    color: var(--color-link);
+}
+
+.articles-page .card a:hover {
+    color: var(--color-link-hover);
+}
