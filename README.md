@@ -38,7 +38,9 @@ css/
 - **[Custom Properties and Nesting](unit-1/custom-properties/index.html)** — Unit 1 assignment exploring CSS custom properties and native nesting
 - **[Layered Components](unit-2/layered-components/index.html)** — Unit 2 assignment demonstrating the layered component architecture
 - **[Editorial Grid Layout](unit-4/grid-layouts/editorial.html)** — Unit 4 assignment building a responsive article layout with `grid-template-areas`
-- **[Responsive Card Grid](unit-4/grid-layouts/cards.html)** — Unit 4 assignment building a fluid card grid with `auto-fit` and `minmax()`
+- **[Responsive Card Grid](unit-4/grid-layouts/cards.html)** — Unit 4 assignment building a fluid card grid with `auto-fit` and `minmax()`, upgraded to align card internals across each row with `grid-template-rows: subgrid`
+- **[Container Queries](unit-4/advanced/container-demo.html)** — Unit 4 Advanced assignment: one component restyles itself from its `container-type` context using `@container` rules instead of media queries
+- **[Sticky Module](unit-4/advanced/sticky-demo.html)** — Unit 4 Advanced assignment: sticky section headers, demonstrating and fixing the `overflow: hidden` scroll-container trap with `overflow: clip`
 
 ### Build Output
 

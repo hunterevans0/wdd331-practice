@@ -1,6 +1,9 @@
 /* Responsive card grid — unit-4/grid-layouts/cards.html
-   Makes .articles-page .card-grid a fluid auto-fit / minmax() grid where the
-   browser decides how many columns fit. Tokens come from dist/styles.css.
+   The grid is a fluid auto-fit / minmax() track list where the browser decides
+   how many columns fit. The upgrade in this assignment: each card opts into
+   `grid-template-rows: subgrid` so the title, body, and footer of every card in
+   a row line up with its neighbours, no matter how long any single title runs.
+   Tokens come from dist/styles.css.
 
    Choose topic applied here: Logical Properties. Spacing, sizing, and borders
    use flow-relative (block/inline) properties throughout. */
@@ -51,10 +54,12 @@
     gap: var(--spacing-lg);
 }
 
-/* ----- Card ----- */
-/* The card is a vertical flex column: placeholder on top, content below.
-   Making it a flex column is what lets the read-more link be pushed to the
-   bottom (see below). */
+/* ----- Card (fallback: works everywhere, including no-subgrid browsers) ----- */
+/* Each card is a flex column: media band on top, then title, body, and the
+   read-more link. In the fallback path the auto block-start margin on the link
+   absorbs the free space so it still sits flush at the bottom of each card.
+   The @supports block further down replaces this with true subgrid alignment
+   wherever the browser supports it. */
 .articles-page .card {
     display: flex;
     flex-direction: column;
@@ -62,7 +67,7 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
-    overflow: hidden; /* clip the placeholder to the rounded corners */
+    overflow: hidden; /* clip the media band to the rounded corners */
     transition: box-shadow var(--transition-base), transform var(--transition-base);
 }
 
@@ -71,27 +76,27 @@
     transform: translateY(-4px);
 }
 
-/* The first div in each card is the image placeholder: a fixed-height band. */
-.articles-page .card > div[aria-hidden="true"] {
+/* The media band: a fixed-height decorative gradient. Its fixed height means
+   media bands already align across a row; subgrid is what fixes the *content*
+   rows below it. */
+.articles-page .card-media {
     block-size: 160px;
     background-image: linear-gradient(135deg, var(--accent-400), var(--accent-600));
 }
 
-/* The second div holds the card body. It is itself a flex column that grows
-   to fill the remaining card height. Because the cards in a row stretch to a
-   shared height, making this body grow lets the link inside it align to the
-   bottom across cards of differing text length. */
-.articles-page .card > div:not([aria-hidden]) {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding-block: var(--spacing-md) var(--spacing-lg);
+/* The three content rows are now direct children of the card (not wrapped in
+   an inner div) so subgrid can give each its own shared track. They carry the
+   inline padding the old wrapper used to provide. */
+.articles-page .card h2,
+.articles-page .card p,
+.articles-page .card a {
     padding-inline: var(--spacing-lg);
 }
 
 .articles-page .card h2 {
-    font-size: var(--font-size-md);
+    padding-block-start: var(--spacing-md);
     margin-block-end: var(--spacing-sm);
+    font-size: var(--font-size-md);
 }
 
 .articles-page .card p {
@@ -100,17 +105,55 @@
     font-size: var(--font-size-sm);
 }
 
-/* Push the read-more link to the bottom of the card. The auto block-start
-   margin absorbs all the free space the flex column gives it, so the link
-   sits flush at the bottom no matter how short the paragraph above is. This
-   is the CSS-only solution to aligning links across uneven cards. */
 .articles-page .card a {
-    margin-block-start: auto;
+    margin-block-start: auto; /* fallback: push the link to the bottom */
     align-self: start;
+    padding-block-end: var(--spacing-lg);
     font-weight: 600;
     color: var(--color-link);
 }
 
 .articles-page .card a:hover {
     color: var(--color-link-hover);
+}
+
+/* ----- Subgrid upgrade ----- */
+/* Where subgrid is supported, the parent grid owns the row tracks and each
+   card inherits them, so a long title in one card grows the *shared* title
+   track for every card in that row — bodies and footers stay aligned.
+
+   Two details the reading flags:
+
+   - row-gap: the card's subgrid inherits the parent's 24px row-gap, which would
+     open a gap between every internal track (media | title | body | footer).
+     We reset the card's own row-gap to 0 so the only visible vertical gaps are
+     the ones *between* rows of cards, not inside a card.
+
+   - align-items: the parent stays at its default `stretch` so each card fills
+     all four of the rows it spans. That equal-height span is what lets the
+     shared tracks resolve to a common height across the row. The 1fr body track
+     then absorbs the slack in shorter cards, dropping their footer to the same
+     baseline as the tallest card's footer. */
+@supports (grid-template-rows: subgrid) {
+    .articles-page .card-grid {
+        /* One repeating set of tracks per row of cards:
+           media (fixed) | title (auto) | body (grows) | footer (auto). */
+        grid-auto-rows: 160px auto 1fr auto;
+        align-items: stretch;
+    }
+
+    .articles-page .card {
+        display: grid;
+        grid-row: span 4;            /* span all four shared tracks */
+        grid-template-rows: subgrid; /* inherit them instead of inventing rows */
+        row-gap: 0;                  /* cancel the inherited 24px internal gap */
+    }
+
+    .articles-page .card-media {
+        block-size: auto; /* the 160px track now sets the height */
+    }
+
+    .articles-page .card a {
+        margin-block-start: 0; /* the 1fr body track does the pushing now */
+    }
 }
