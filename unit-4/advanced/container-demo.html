@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Queries</title>
+    <link rel="stylesheet" href="../../dist/styles.css">
+    <link rel="stylesheet" href="container-demo.css">
+</head>
+<body class="container-page">
+    <a class="back-home" href="../../index.html">&larr; Back to Home</a>
+    <header>
+        <h1>Container Queries</h1>
+        <p>
+            The same media-object component appears in a narrow sidebar and a
+            wide main column. It restyles itself from its <em>container's</em>
+            width &mdash; no media query and no JavaScript involved. Resize the
+            window: the wide card reflows on its own.
+        </p>
+    </header>
+
+    <main class="layout">
+        <!-- Wide placement (main content area). Its wrapper is the query
+             container, so the card inside reads this column's width. -->
+        <div class="placement placement--wide">
+            <p class="placement-label">Wide context (main)</p>
+            <article class="media-card">
+                <div class="media-card__thumb" aria-hidden="true"></div>
+                <div class="media-card__body">
+                    <h2>Container-driven layout</h2>
+                    <p>
+                        Past its breakpoint this card goes horizontal: the
+                        thumbnail sits beside the text instead of above it.
+                    </p>
+                    <a href="#">Learn more</a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Narrow placement (sidebar). Same markup, narrower container, so the
+             card stays stacked. -->
+        <aside class="placement placement--narrow">
+            <p class="placement-label">Narrow context (sidebar)</p>
+            <article class="media-card">
+                <div class="media-card__thumb" aria-hidden="true"></div>
+                <div class="media-card__body">
+                    <h2>Same component</h2>
+                    <p>
+                        Identical markup. Because its container is narrow, it
+                        stacks vertically with no override needed.
+                    </p>
+                    <a href="#">Learn more</a>
+                </div>
+            </article>
+
+            <article class="media-card">
+                <div class="media-card__thumb" aria-hidden="true"></div>
+                <div class="media-card__body">
+                    <h2>Reusable anywhere</h2>
+                    <p>
+                        Drop it into any container and it adapts to the room it
+                        is given.
+                    </p>
+                    <a href="#">Learn more</a>
+                </div>
+            </article>
+        </aside>
+    </main>
+</body>
+</html>

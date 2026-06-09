@@ -1,0 +1,114 @@
+/* Sticky module demo — unit-4/advanced/sticky-demo.html
+   Each section heading sticks to the top of the viewport while its section
+   scrolls past. The page also demonstrates the classic overflow trap: a wrapper
+   that needs to clip a decorative glow, fixed so the clipping does not break the
+   sticky headers. Tokens come from the shared dist/styles.css bundle. */
+
+.sticky-page {
+    /* Offset token for this page: how far below the top edge each header pins.
+       The assignment lets you keep a sticky offset local; this avoids a rebuild
+       of the shared bundle. */
+    --sticky-offset: var(--spacing-md);
+}
+
+/* ----- Back-to-home button ----- */
+.sticky-page .back-home {
+    display: inline-block;
+    margin-block-end: var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-link);
+    font-weight: 600;
+}
+
+.sticky-page .back-home:hover {
+    color: var(--color-link-hover);
+    border-color: var(--color-border-strong);
+    text-decoration: none;
+}
+
+.sticky-page header {
+    margin-block-end: var(--spacing-xl);
+}
+
+.sticky-page header p {
+    max-inline-size: 65ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-md);
+}
+
+/* ----- The wrapper that hosts the decorative glow ----- */
+/* The glow is positioned to bleed past the wrapper's edges, so the wrapper has
+   to clip it.
+
+   THE BUG: the obvious choice, `overflow: hidden`, makes this wrapper the
+   nearest scroll container for the .section-header elements nested inside it.
+   Because the wrapper grows with its content (the page itself scrolls on the
+   document root, not here), the headers then have no scrollable area to stick
+   within and `position: sticky` silently does nothing.
+
+   THE FIX: `overflow: clip` clips the glow identically but does NOT create a
+   scroll container, so the document root stays the headers' scroll container
+   and sticky keeps working. (overflow-clip-margin: 0 keeps the clip tight to
+   the edge.) Swap this back to `overflow: hidden` to watch the headers break. */
+.sticky-page .content {
+    position: relative;
+    overflow: clip;          /* was: overflow: hidden — broke the sticky headers */
+    overflow-clip-margin: 0;
+    border-radius: var(--radius-lg);
+}
+
+.sticky-page .content__glow {
+    position: absolute;
+    inset-block-start: -120px;
+    inset-inline-end: -120px;
+    inline-size: 280px;
+    block-size: 280px;
+    background: radial-gradient(closest-side, var(--accent-400), transparent);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ----- Sections and their sticky headers ----- */
+.sticky-page .doc-section {
+    position: relative;
+    padding-inline: var(--spacing-lg);
+    padding-block-end: var(--spacing-xl);
+}
+
+/* The sticky element. `top` (inset-block-start) is the required offset — drop it
+   and the header scrolls away like any other box. The background and border are
+   what keep section text from showing through behind the pinned header. */
+.sticky-page .section-header {
+    position: sticky;
+    inset-block-start: var(--sticky-offset);
+    z-index: 1;
+    margin-block-end: var(--spacing-md);
+    padding-block: var(--spacing-md);
+    padding-inline: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    font-size: var(--font-size-lg);
+}
+
+.sticky-page .doc-section p {
+    max-inline-size: 65ch;
+    margin-block-end: var(--spacing-md);
+    padding-inline: var(--spacing-lg);
+    color: var(--color-text-muted);
+}
+
+/* ----- Footer ----- */
+.sticky-page .sticky-footer {
+    margin-block-start: var(--spacing-xl);
+    padding-block: var(--spacing-lg);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-align: center;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Module</title>
+    <link rel="stylesheet" href="../../dist/styles.css">
+    <link rel="stylesheet" href="sticky-demo.css">
+</head>
+<body class="sticky-page">
+    <a class="back-home" href="../../index.html">&larr; Back to Home</a>
+    <header>
+        <h1>Sticky Section Headers</h1>
+        <p>
+            Scroll down. Each section heading sticks to the top of the viewport
+            while its own content scrolls past, then is pushed off by the next
+            heading. The decorative glow on the wrapper is clipped without
+            breaking the sticky behaviour &mdash; see the comment in the CSS.
+        </p>
+    </header>
+
+    <!-- This wrapper carries a decorative glow that bleeds past its edges and
+         must be clipped. Clipping it the naive way (overflow: hidden) would turn
+         this wrapper into the scroll container for the sticky headers below and
+         silently break them. sticky-demo.css clips it without that side effect. -->
+    <div class="content">
+        <div class="content__glow" aria-hidden="true"></div>
+
+        <section class="doc-section">
+            <h2 class="section-header">1. What sticky positioning does</h2>
+            <p>A sticky element behaves like a relatively positioned element until its scroll container crosses the offset you set, at which point it sticks in place. It needs at least one inset property — top, bottom, inset-block-start, etc. — or it never sticks at all.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+        </section>
+
+        <section class="doc-section">
+            <h2 class="section-header">2. The required offset property</h2>
+            <p>The offset is what tells the browser where to pin the element. Without it the element scrolls away like any normal box. Here every header uses a small top offset stored in a custom property so the value is consistent and easy to change.</p>
+            <p>Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis.</p>
+            <p>Maecenas aliquet accumsan leo. Nullam dapibus fermentum ipsum. Etiam quis quam. Integer lacinia. Nulla est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus.</p>
+            <p>Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc.</p>
+        </section>
+
+        <section class="doc-section">
+            <h2 class="section-header">3. The overflow trap (and the fix)</h2>
+            <p>Any ancestor between a sticky element and its scroll container that has overflow set to hidden, scroll, or auto quietly becomes the sticky element's new scroll container. If that ancestor is not itself scrollable, the element has nowhere to stick and the feature appears broken.</p>
+            <p>The fix used on this page is overflow: clip. It clips the overflowing glow exactly like overflow: hidden would, but it does not establish a scroll container, so the sticky headers keep working. The reasoning is documented right where the fix lives in the CSS.</p>
+            <p>Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Etiam imperdiet imperdiet orci. Nunc nec neque. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi.</p>
+            <p>Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Maecenas malesuada. Praesent congue erat at massa. Sed cursus turpis vitae tortor.</p>
+        </section>
+
+        <section class="doc-section">
+            <h2 class="section-header">4. Putting it together</h2>
+            <p>Sticky section headers are a small amount of CSS — position, an offset, and a background so content does not show through — but they depend entirely on no ancestor accidentally hijacking the scroll container. Clip instead of hide and the pattern is robust.</p>
+            <p>Donec mi. Morbi in dui quis est pulvinar ullamcorper. Nulla facilisi. Integer lacinia sollicitudin massa. Cras metus. Sed aliquet risus a tortor. Integer id quam. Morbi mi.</p>
+            <p>Quisque nisl felis, venenatis tristique, dignissim in, ultrices sit amet, augue. Proin sodales libero eget ante. Nulla quam. Aenean laoreet. Vestibulum nisi lectus, commodo ac, facilisis ac.</p>
+            <p>Phasellus tempus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus.</p>
+        </section>
+    </div>
+
+    <footer class="sticky-footer">
+        <p>You have reached the end &mdash; every header stuck on the way down.</p>
+    </footer>
+</body>
+</html>
