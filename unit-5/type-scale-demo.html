@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Type Scale &amp; Fluid Type</title>
+    <link rel="stylesheet" href="../dist/styles.css">
+    <link rel="stylesheet" href="type-scale-demo.css">
+</head>
+<body class="type-page">
+    <a class="back-home" href="../index.html">&larr; Back to Home</a>
+
+    <header>
+        <h1>Type Scale &amp; Fluid Type</h1>
+        <p>
+            Three ideas, made visible: a <strong>modular scale</strong> that derives
+            every size from one base and one ratio, a <strong>semantic role layer</strong>
+            that names sizes by purpose, and <strong>fluid sizing</strong> with
+            <code>clamp()</code> shown with a draggable viewport simulator.
+        </p>
+    </header>
+
+    <!-- ===== 1. The modular scale ===== -->
+    <section class="demo-section">
+        <h2>1. A modular scale, not arbitrary sizes</h2>
+        <p>
+            Eight named steps. The lower range steps up by roughly a minor third
+            (about 1.2×) per step, so every size relates to the next instead of
+            being a one-off number. Change the base and the whole scale shifts
+            while the proportions hold.
+        </p>
+
+        <div class="scale-list">
+            <div class="scale-row" style="--step: var(--font-size-4xl)">
+                <span class="scale-row__token">4xl</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">2.25rem · 36px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-3xl)">
+                <span class="scale-row__token">3xl</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">1.875rem · 30px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-2xl)">
+                <span class="scale-row__token">2xl</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">1.6875rem · 27px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-xl)">
+                <span class="scale-row__token">xl</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">1.5rem · 24px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-lg)">
+                <span class="scale-row__token">lg</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">1.3125rem · 21px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-md)">
+                <span class="scale-row__token">md</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">1.125rem · 18px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-sm)">
+                <span class="scale-row__token">sm</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">0.9375rem · 15px</span>
+            </div>
+            <div class="scale-row" style="--step: var(--font-size-xs)">
+                <span class="scale-row__token">xs</span>
+                <span class="scale-row__sample">Almost before we knew it</span>
+                <span class="scale-row__meta">0.75rem · 12px</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 2. Roles mapped to steps ===== -->
+    <section class="demo-section">
+        <h2>2. Roles give the sizes meaning</h2>
+        <p>
+            A numeric step tells you <em>where</em> a size sits; a role token
+            tells you <em>what it is for</em>. Components consume the role layer,
+            never the steps directly &mdash; so re-pointing a role moves every
+            element that uses it, in one edit.
+        </p>
+
+        <div class="code-block">/* Layer 2: roles point at scale steps */
+--font-size-display:    var(--font-size-4xl);
+--font-size-heading-lg: var(--font-size-3xl);
+--font-size-heading-md: var(--font-size-2xl);
+--font-size-heading-sm: var(--font-size-xl);
+--font-size-body:       var(--font-size-md);
+--font-size-body-sm:    var(--font-size-sm);
+--font-size-caption:    var(--font-size-xs);</div>
+
+        <div class="role-grid">
+            <div class="role-card" data-role="display">
+                <span class="role-card__label">--font-size-display → 4xl</span>
+                <p class="role-card__sample">Deliberate practice produces skill</p>
+            </div>
+            <div class="role-card" data-role="heading-lg">
+                <span class="role-card__label">--font-size-heading-lg → 3xl</span>
+                <p class="role-card__sample">Deliberate practice produces skill</p>
+            </div>
+            <div class="role-card" data-role="heading-md">
+                <span class="role-card__label">--font-size-heading-md → 2xl</span>
+                <p class="role-card__sample">Deliberate practice produces skill</p>
+            </div>
+            <div class="role-card" data-role="heading-sm">
+                <span class="role-card__label">--font-size-heading-sm → xl</span>
+                <p class="role-card__sample">Deliberate practice produces skill</p>
+            </div>
+            <div class="role-card" data-role="body">
+                <span class="role-card__label">--font-size-body → md</span>
+                <p class="role-card__sample">Body copy at the role token reads at a comfortable rhythm because its line-height is tuned for sustained prose, around 1.55.</p>
+            </div>
+            <div class="role-card" data-role="body-sm">
+                <span class="role-card__label">--font-size-body-sm → sm</span>
+                <p class="role-card__sample">Smaller supporting copy for secondary text, captions on cards, and dense UI.</p>
+            </div>
+            <div class="role-card" data-role="caption">
+                <span class="role-card__label">--font-size-caption → xs</span>
+                <p class="role-card__sample">Captions, labels, and fine print live at the bottom step.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 3. Fixed vs fluid — the simulator ===== -->
+    <section class="demo-section">
+        <h2>3. Fixed vs fluid with <code>clamp()</code></h2>
+        <p>
+            Drag the slider to resize the dashed <strong>simulated viewport</strong>.
+            The fixed sizes stay frozen; the fluid sizes scale continuously, then
+            flatten the moment they hit their floor (small widths) and ceiling
+            (large widths). Watch the readouts to catch those plateaus.
+        </p>
+
+        <div class="sim-controls">
+            <label for="sim-width">Viewport width</label>
+            <input type="range" id="sim-width" min="240" max="1320" value="760" step="1">
+            <output class="sim-readout" id="sim-width-out">760px</output>
+        </div>
+
+        <div class="viewport-sim" id="viewport-sim" style="--sim-width: 760px">
+            <div class="sim-block">
+                <span class="sim-tag">Fixed · always 24px</span>
+                <p class="demo-heading--fixed" id="head-fixed">The quick brown fox</p>
+            </div>
+            <div class="sim-block">
+                <span class="sim-tag">Fluid · clamp(24px, 1.364cqi + 19.64px, 36px) · <span id="head-fluid-px">—</span></span>
+                <p class="demo-heading--fluid" id="head-fluid">The quick brown fox</p>
+            </div>
+            <div class="sim-block">
+                <span class="sim-tag">Fixed body · always 18px</span>
+                <p class="demo-body--fixed">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs.</p>
+            </div>
+            <div class="sim-block">
+                <span class="sim-tag">Fluid body · clamp(14px, 0.4545cqi + 12.55px, 18px) · <span id="body-fluid-px">—</span></span>
+                <p class="demo-body--fluid" id="body-fluid">The quick brown fox jumps over the lazy dog. Pack my box with five dozen liquor jugs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 4. The math behind the preferred value ===== -->
+    <section class="demo-section">
+        <h2>4. Calculating the preferred value</h2>
+        <p>
+            The preferred (middle) argument is a line through two points:
+            (min-viewport, min-size) and (max-viewport, max-size). Work in px,
+            convert at the end. This is the heading used above &mdash; 24px at a
+            320px viewport, 36px at 1200px:
+        </p>
+
+        <div class="code-block">/* slope     = (36 − 24) / (1200 − 320) = 12 / 880 ≈ 0.01364 */
+/*           = 0.01364 × 100            ≈ 1.364 per 1% of width */
+/* intercept = 24 − (0.01364 × 320)     ≈ 19.64px */
+
+font-size: clamp(24px, 1.364cqi + 19.64px, 36px);
+
+/* verify @ 320px: 1.364 × 3.20 + 19.64 = 24.0px  (floor)  */
+/* verify @ 1200px: 1.364 × 12.0 + 19.64 = 36.0px (ceiling) */</div>
+
+        <p>
+            The reading writes this with <code>vw</code> (1% of the real window).
+            This simulator swaps in <code>cqi</code> (1% of the dashed container's
+            width) so the type tracks the slider instead of the browser window
+            &mdash; same equation, a container-relative unit. Do the derivation
+            once to understand it, then let a tool like Utopia generate a whole
+            scale of these declarations for you.
+        </p>
+    </section>
+
+    <footer class="demo-footer">
+        <p>The math serves readability &mdash; always test type at real widths and nudge the clamp boundaries if an extreme feels off.</p>
+    </footer>
+
+    <script>
+        // Drive the simulated viewport from the slider, and read back the
+        // browser-computed font sizes so the fluid plateaus are visible.
+        (function () {
+            var slider   = document.getElementById('sim-width');
+            var widthOut = document.getElementById('sim-width-out');
+            var sim      = document.getElementById('viewport-sim');
+            var headFluid = document.getElementById('head-fluid');
+            var bodyFluid = document.getElementById('body-fluid');
+            var headPx   = document.getElementById('head-fluid-px');
+            var bodyPx   = document.getElementById('body-fluid-px');
+
+            function px(el) {
+                // getComputedStyle resolves clamp()/cqi to an actual pixel value.
+                return parseFloat(getComputedStyle(el).fontSize).toFixed(1) + 'px';
+            }
+
+            function update() {
+                var w = slider.value;
+                sim.style.setProperty('--sim-width', w + 'px');
+                widthOut.textContent = w + 'px';
+                // Read after the layout settles so cqi reflects the new width.
+                requestAnimationFrame(function () {
+                    headPx.textContent = px(headFluid);
+                    bodyPx.textContent = px(bodyFluid);
+                });
+            }
+
+            slider.addEventListener('input', update);
+            update();
+        })();
+    </script>
+</body>
+</html>
