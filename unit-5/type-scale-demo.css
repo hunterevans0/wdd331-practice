@@ -1,0 +1,276 @@
+/* Type scale & fluid type demo — unit-4/advanced/type-scale-demo.html
+   Three ideas from the reading, made visible:
+     1. a modular scale (one base × one ratio → a set of related sizes),
+     2. a semantic role layer that points at scale steps by purpose,
+     3. fluid sizing with clamp(), shown live with a simulated viewport.
+
+   The shared tokens/variables.css only ships sm/md/lg, so this page defines
+   its own scale locally — the same trick sticky-demo.css uses for its offset,
+   which avoids a rebuild of the shared dist bundle.
+
+   NOTE ON UNITS: the course file targets an html { font-size: 62.5% } basis
+   where 1rem = 10px. This site uses the browser default (1rem = 16px), so the
+   scale below is written in rem values that land on the SAME pixel sizes the
+   reading lists (12, 15, 18 … 36px). The math is always shown in px, which is
+   basis-independent. */
+
+.type-page {
+    /* ---- Layer 1: the modular scale (source of truth for sizes) ---- */
+    /* Lower steps step up ~1.2× (a minor third); px equivalents in comments. */
+    --font-size-xs:  0.75rem;    /* 12px */
+    --font-size-sm:  0.9375rem;  /* 15px */
+    --font-size-md:  1.125rem;   /* 18px */
+    --font-size-lg:  1.3125rem;  /* 21px */
+    --font-size-xl:  1.5rem;     /* 24px */
+    --font-size-2xl: 1.6875rem;  /* 27px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+
+    /* Paired line-heights, tuned by role: open for prose, tight for display. */
+    --line-height-body:    1.55;
+    --line-height-heading: 1.2;
+    --line-height-display: 1.125;
+
+    /* ---- Layer 2: semantic roles, pointing at scale steps ---- */
+    /* Components consume THESE, never the numeric steps directly. Re-point a
+       role here and every element using it moves with it. */
+    --font-size-caption:    var(--font-size-xs);
+    --font-size-body-sm:    var(--font-size-sm);
+    --font-size-body:       var(--font-size-md);
+    --font-size-heading-sm: var(--font-size-xl);
+    --font-size-heading-md: var(--font-size-2xl);
+    --font-size-heading-lg: var(--font-size-3xl);
+    --font-size-display:    var(--font-size-4xl);
+}
+
+/* ----- Back-to-home button (shared look with the other demos) ----- */
+.type-page .back-home {
+    display: inline-block;
+    margin-block-end: var(--spacing-lg);
+    padding-block: var(--spacing-sm);
+    padding-inline: var(--spacing-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    color: var(--color-link);
+    font-weight: 600;
+}
+
+.type-page .back-home:hover {
+    color: var(--color-link-hover);
+    border-color: var(--color-border-strong);
+    text-decoration: none;
+}
+
+.type-page header {
+    margin-block-end: var(--spacing-xl);
+}
+
+.type-page header p {
+    max-inline-size: 65ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+}
+
+/* ----- Generic section shell ----- */
+.type-page .demo-section {
+    margin-block-end: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.type-page .demo-section > h2 {
+    font-size: var(--font-size-heading-md);
+    line-height: var(--line-height-heading);
+}
+
+.type-page .demo-section > p {
+    max-inline-size: 65ch;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+}
+
+/* ===== 1. The modular scale ===== */
+.type-page .scale-list {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-block-start: var(--spacing-lg);
+}
+
+.type-page .scale-row {
+    display: grid;
+    grid-template-columns: 5rem 1fr auto;
+    align-items: baseline;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-sm);
+    border-block-end: 1px solid var(--color-border);
+}
+
+.type-page .scale-row__token {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+}
+
+.type-page .scale-row__sample {
+    /* Each row sets --step inline; the sample renders at that size. */
+    font-size: var(--step);
+    line-height: var(--line-height-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.type-page .scale-row__meta {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+    text-align: end;
+    white-space: nowrap;
+}
+
+/* ===== 2. Roles mapped to steps ===== */
+.type-page .role-grid {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-block-start: var(--spacing-lg);
+}
+
+.type-page .role-card {
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+}
+
+.type-page .role-card__label {
+    display: block;
+    margin-block-end: var(--spacing-xs);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+}
+
+.type-page .role-card[data-role="display"]    .role-card__sample { font-size: var(--font-size-display);    line-height: var(--line-height-display); }
+.type-page .role-card[data-role="heading-lg"] .role-card__sample { font-size: var(--font-size-heading-lg); line-height: var(--line-height-heading); }
+.type-page .role-card[data-role="heading-md"] .role-card__sample { font-size: var(--font-size-heading-md); line-height: var(--line-height-heading); }
+.type-page .role-card[data-role="heading-sm"] .role-card__sample { font-size: var(--font-size-heading-sm); line-height: var(--line-height-heading); }
+.type-page .role-card[data-role="body"]       .role-card__sample { font-size: var(--font-size-body);       line-height: var(--line-height-body); }
+.type-page .role-card[data-role="body-sm"]    .role-card__sample { font-size: var(--font-size-body-sm);    line-height: var(--line-height-body); }
+.type-page .role-card[data-role="caption"]    .role-card__sample { font-size: var(--font-size-caption);    line-height: var(--line-height-body); color: var(--color-text-muted); }
+
+/* ===== 3. Fixed vs fluid — the viewport simulator ===== */
+.type-page .sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-block: var(--spacing-lg) var(--spacing-md);
+}
+
+.type-page .sim-controls label {
+    font-weight: 600;
+}
+
+.type-page .sim-controls input[type="range"] {
+    flex: 1 1 16rem;
+    min-inline-size: 12rem;
+}
+
+.type-page .sim-readout {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-body-sm);
+    padding-block: var(--spacing-xs);
+    padding-inline: var(--spacing-sm);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+/* The simulated viewport. Its WIDTH is driven by the slider (--sim-width), and
+   container-type makes cqi units below resolve against THIS box's width — so a
+   clamp() written with cqi tracks the simulated width, which a vw-based clamp
+   never could (vw always means the real browser window). */
+.type-page .viewport-sim {
+    container-type: inline-size;
+    inline-size: var(--sim-width, 760px);
+    max-inline-size: 100%;
+    margin-inline: auto;
+    padding: var(--spacing-lg);
+    border: 2px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
+    transition: inline-size 0.05s linear;
+}
+
+.type-page .sim-block + .sim-block {
+    margin-block-start: var(--spacing-lg);
+    padding-block-start: var(--spacing-md);
+    border-block-start: 1px solid var(--color-border);
+}
+
+.type-page .sim-tag {
+    display: inline-block;
+    margin-block-end: var(--spacing-xs);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-caption);
+    color: var(--color-text-muted);
+}
+
+/* Fixed: always 24px (1.5rem). Frozen no matter how wide the sim gets. */
+.type-page .demo-heading--fixed {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-heading);
+    margin: 0;
+}
+
+/* Fluid: the worked example from the reading, in px so it is basis-independent.
+   clamp(24px floor, 1.364cqi + 19.64px preferred, 36px ceiling).
+   cqi (not vw) so it follows the simulated viewport above. */
+.type-page .demo-heading--fluid {
+    font-size: clamp(24px, calc(1.364cqi + 19.64px), 36px);
+    line-height: var(--line-height-heading);
+    margin: 0;
+}
+
+.type-page .demo-body--fixed {
+    font-size: var(--font-size-md);   /* 18px, frozen */
+    line-height: var(--line-height-body);
+    max-inline-size: 60ch;
+}
+
+.type-page .demo-body--fluid {
+    /* 14px at 320px → 18px at 1200px: slope 0.4545cqi, intercept 12.55px. */
+    font-size: clamp(14px, calc(0.4545cqi + 12.55px), 18px);
+    line-height: var(--line-height-body);
+    max-inline-size: 60ch;
+}
+
+/* ===== Code / math blocks ===== */
+.type-page .code-block {
+    margin-block: var(--spacing-md);
+    padding: var(--spacing-md);
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-body-sm);
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.type-page .demo-footer {
+    margin-block-start: var(--spacing-xl);
+    padding-block: var(--spacing-lg);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    text-align: center;
+}
