@@ -24,6 +24,11 @@
 @import url('./components/theme-toggle.css');
 @import url('./components/cards.css');
 @import url('./components/effects.css');
+@import url('./components/resume.css');
+@import url('./components/forms.css');
 
 /* Utilities */
 @import url('./utilities/utilities.css');
+
+/* Print (must come last so it can override screen rules) */
+@import url('./print.css');
