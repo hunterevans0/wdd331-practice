@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunter Evans — Contact</title>
+    <script src="js/theme-preference.js"></script>
+    <link rel="stylesheet" href="dist/styles.css">
+</head>
+<body>
+    <div class="page-shell">
+        <nav class="resume-nav no-print" aria-label="Site">
+            <a class="back-home" href="index.html">&larr; Back to Home</a>
+            <button class="theme-toggle-simple" type="button" aria-label="Toggle theme"
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">🌗</button>
+        </nav>
+
+        <main>
+            <header class="site-hero">
+                <p class="eyebrow">WDD 331R Advanced CSS</p>
+                <h1>Contact</h1>
+                <p class="hero-copy">Have a question or want to connect? Send a message below.</p>
+            </header>
+
+            <section class="site-card">
+                <h2>Send a message</h2>
+                <form class="contact-form" action="#" method="post" novalidate>
+                    <div class="form-field">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" autocomplete="name" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="4"
+                            placeholder="Type your message — this box grows as you type."></textarea>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+                        <label for="subscribe">Subscribe to occasional updates</label>
+                    </div>
+
+                    <button class="form-submit" type="submit">Send message</button>
+                    <p class="form-note">This form is a styling demo and does not submit anywhere.</p>
+                </form>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2026 Hunter Evans — WDD 331R Advanced CSS</p>
+        </footer>
+    </div>
+</body>
+</html>

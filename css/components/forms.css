@@ -1,0 +1,71 @@
+/* ========================================
+   CONTACT FORM COMPONENT
+   accent-color is set on :root (colors.css), so
+   checkboxes / radios / range inputs inherit the
+   brand color automatically.
+   ======================================== */
+
+.contact-form {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    display: grid;
+    gap: var(--spacing-md);
+    max-width: 40rem;
+}
+
+.form-field {
+    display: grid;
+    gap: var(--spacing-xs);
+}
+
+.contact-form textarea {
+    min-height: 8rem;
+    max-height: 24rem;
+    resize: vertical;
+    /* Grow with content where supported (Chrome/Edge/Safari 26.2+).
+       min/max-height above keep it sane where unsupported (Firefox). */
+    field-sizing: content;
+}
+
+/* Checkbox row — the accent-color shows here */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.form-check input[type="checkbox"] {
+    width: auto;
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+}
+
+.form-check label {
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+.form-submit {
+    width: fit-content;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    color: #fff;
+    background-color: var(--color-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: background-color var(--transition-base), transform var(--transition-base);
+}
+
+.form-submit:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.form-note {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    margin: 0;
+}
