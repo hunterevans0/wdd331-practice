@@ -1,0 +1,413 @@
+/* ============================================================
+   Motion — Activity Dashboard (unit-6/motion/index.html)
+
+   The shared dist/styles.css ships tokens + base element styles but
+   does NOT ship the .site-header / .btn / .card / .status-badge
+   component classes this page uses, so the APPEARANCE for those lives
+   here alongside the motion.
+
+   MOTION POLICY: one approach, used consistently. Every transition and
+   animation in this file lives inside
+       @media (prefers-reduced-motion: no-preference) { ... }
+   so a user who opts out of motion gets a fully static, intentional
+   page. The .status-badge keeps a static "live" treatment as its
+   baseline (a colored dot + ring), and only GAINS the infinite pulse
+   inside the no-preference block — see step 4 note near the animation.
+
+   Every transition names its properties explicitly. `transition: all`
+   is never used in this file.
+   ============================================================ */
+
+:root {
+    /* Local "live/active" accent (no success color in the shared tokens). */
+    --motion-live: oklch(0.62 0.16 150);
+    --motion-live-ring: oklch(0.62 0.16 150 / 0.28);
+}
+
+/* ============================================================
+   1. APPEARANCE (static — renders the same with or without motion)
+   ============================================================ */
+
+/* ---- Site header + nav ---- */
+.site-header {
+    width: min(90vw, 72rem);
+    margin: 0 auto var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.site-name {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+}
+
+.site-header nav {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.site-header nav a {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.site-header nav a:hover {
+    text-decoration: none;
+}
+
+/* CTA reads as a button, not a bare link. */
+.nav-cta {
+    background-color: var(--color-accent);
+    color: var(--header-text);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-cta:hover {
+    color: var(--header-text);
+}
+
+/* ---- Dashboard header + status ---- */
+.dashboard-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-header p {
+    margin: 0;
+    color: var(--color-text-muted);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+/* Baseline "live" treatment: a colored pill with a leading dot and a
+   soft ring. This is what a reduced-motion user sees — static, but it
+   clearly reads as an active/operational status, not a broken element. */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 999px;
+    background-color: color-mix(in oklch, var(--motion-live) 16%, var(--color-surface));
+    border: 1px solid color-mix(in oklch, var(--motion-live) 40%, transparent);
+    color: color-mix(in oklch, var(--motion-live) 70%, var(--color-text));
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 0 0 0 var(--motion-live-ring);
+}
+
+.status-badge::before {
+    content: "";
+    inline-size: 0.6em;
+    block-size: 0.6em;
+    border-radius: 50%;
+    background-color: var(--motion-live);
+}
+
+.status-label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ---- Action buttons ---- */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--header-text);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+    background-color: var(--color-surface);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--color-link);
+}
+
+/* ---- Card grid ---- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--spacing-lg);
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+}
+
+.card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.card-tag {
+    flex: none;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 999px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.card-tag--active {
+    background-color: color-mix(in oklch, var(--color-accent) 16%, var(--color-surface));
+    border-color: color-mix(in oklch, var(--color-accent) 40%, transparent);
+    color: var(--color-accent);
+}
+
+.card-tag--pending {
+    background-color: transparent;
+    border-style: dashed;
+}
+
+/* This page's .card-link is an inline text link, not the shared filled
+   button. Override the shared component look. */
+.card-grid .card-link {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    width: auto;
+    margin-top: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    color: var(--color-link);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* ============================================================
+   2–5. MOTION — everything below is gated on no-preference, so
+   reduced-motion users get the static page above and nothing here.
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+
+    /* -------- 2a. Navigation links --------
+       Bare links: a quick, linear color/background wash — utilitarian.
+       Fast IN (on :hover), slightly slower OUT (base) feels natural. */
+    .site-header nav a {
+        transition:
+            color 240ms ease,
+            background-color 240ms ease;
+    }
+
+    .site-header nav a:hover,
+    .site-header nav a:focus-visible {
+        color: var(--color-text);
+        background-color: var(--color-bg);
+        /* Forward (enter) timing overrides only while hovered/focused. */
+        transition:
+            color 120ms ease,
+            background-color 120ms ease;
+    }
+
+    /* CTA: heavier element, so an eased lift + shadow, not just a wash. */
+    .nav-cta {
+        transition:
+            background-color 260ms ease,
+            box-shadow 260ms cubic-bezier(0.34, 1.56, 0.64, 1),
+            transform 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+        background-color: var(--color-accent-hover);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+        transition:
+            background-color 140ms ease,
+            box-shadow 140ms cubic-bezier(0.34, 1.56, 0.64, 1),
+            transform 140ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* -------- 2b. Buttons: motion scaled to visual weight -------- */
+
+    /* Primary — the loudest control: lift + shadow + color. */
+    .btn-primary {
+        transition:
+            background-color 220ms ease,
+            box-shadow 220ms ease,
+            transform 220ms ease;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+        background-color: var(--color-accent-hover);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-3px);
+        transition:
+            background-color 110ms ease,
+            box-shadow 110ms ease,
+            transform 110ms ease;
+    }
+
+    /* Secondary — medium: border + surface shift, a gentle lift. */
+    .btn-secondary {
+        transition:
+            background-color 200ms ease,
+            border-color 200ms ease,
+            transform 200ms ease;
+    }
+    .btn-secondary:hover,
+    .btn-secondary:focus-visible {
+        background-color: var(--color-bg);
+        border-color: var(--color-accent);
+        transform: translateY(-1px);
+        transition:
+            background-color 120ms ease,
+            border-color 120ms ease,
+            transform 120ms ease;
+    }
+
+    /* Ghost — quietest: just a background tint fade, no transform. */
+    .btn-ghost {
+        transition: background-color 180ms ease, color 180ms ease;
+    }
+    .btn-ghost:hover,
+    .btn-ghost:focus-visible {
+        background-color: color-mix(in oklch, var(--color-accent) 12%, transparent);
+        color: var(--color-accent-hover);
+    }
+
+    /* -------- 2c. Cards + card links --------
+       The transform/opacity here also drive the @starting-style entrance
+       in step 5; hover reuses transform + box-shadow. */
+    .card {
+        transition:
+            box-shadow 300ms ease,
+            border-color 300ms ease,
+            transform 300ms ease,
+            opacity 500ms ease;
+    }
+    .card:hover {
+        border-color: var(--color-border-strong);
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+        /* Fast in, so the lift feels responsive to the pointer. */
+        transition:
+            box-shadow 160ms ease,
+            border-color 160ms ease,
+            transform 160ms ease;
+    }
+
+    /* The link transitions independently of its card. */
+    .card-grid .card-link {
+        transition: color 200ms ease, gap 200ms ease;
+        gap: var(--spacing-xs);
+    }
+    .card-grid .card-link:hover,
+    .card-grid .card-link:focus-visible {
+        color: var(--color-accent-hover);
+        gap: var(--spacing-sm);
+    }
+
+    /* -------- 3. Purposeful keyframe animation on the status badge --------
+       A subtle, continuous pulse that reads as "live", built only from
+       compositor-friendly properties (transform + opacity). The soft ring
+       breathes outward via box-shadow spread on a pseudo... but to stay
+       compositor-friendly we pulse transform/opacity on the dot instead. */
+    @keyframes badge-pulse {
+        from {
+            transform: scale(1);
+            opacity: 1;
+        }
+        to {
+            transform: scale(1.25);
+            opacity: 0.55;
+        }
+    }
+
+    /* The leading dot is the animated element (transform/opacity only). */
+    .status-badge::before {
+        animation: badge-pulse 1.6s ease-in-out infinite alternate;
+    }
+
+    /* NOTE (step 4): this pulse only exists inside no-preference, so a
+       reduced-motion user never sees it — they keep the static dot + ring
+       baseline, which still reads as an active status. */
+
+    /* -------- 5. Choose topic: @starting-style entrance --------
+       Cards transition in from their initial render state (the .card
+       transition set in step 2c already lists opacity + transform).
+       Staggered with transition-delay so they cascade in. */
+    @starting-style {
+        .card {
+            opacity: 0;
+            transform: translateY(1.5rem);
+        }
+    }
+
+    .card:nth-child(1) { transition-delay: 0ms; }
+    .card:nth-child(2) { transition-delay: 60ms; }
+    .card:nth-child(3) { transition-delay: 120ms; }
+    .card:nth-child(4) { transition-delay: 180ms; }
+    .card:nth-child(5) { transition-delay: 240ms; }
+    .card:nth-child(6) { transition-delay: 300ms; }
+
+    /* Cancel the entrance delay on hover so the lift stays snappy. */
+    .card:hover {
+        transition-delay: 0ms;
+    }
+}
