@@ -46,6 +46,7 @@ css/
 - **[Type Scale & Fluid Type](unit-5/type-scale-demo.html)** — Unit 5 assignment: a modular type scale with `clamp()`-based fluid sizing
 - **[Resume / CV](resume.html)** — Printable resume page with a dedicated print stylesheet (`css/print.css`): hidden screen chrome, `pt` serif type, link URLs surfaced with `::after`, `break-inside: avoid` on entries, `orphans`/`widows` control, and `print-color-adjust: exact` on the brand header
 - **[Contact Form](contact.html)** — Accessible stub form (label/`for`+`id` pairs) styled with `accent-color`; the message `textarea` uses `field-sizing: content` with `min`/`max-height` guardrails
+- **[Meaningful Motion](unit-6/motion/index.html)** — Unit 6 assignment: explicit-property `transition`s on nav links, buttons, and cards (no `transition: all`) with faster-in/slower-out hover timing; a compositor-only `@keyframes` pulse (`transform`/`opacity`, `infinite alternate`) on the live status badge; all motion gated behind `@media (prefers-reduced-motion: no-preference)` with a static "live" badge fallback. Choose topic: `@starting-style` card entrance, staggered with `:nth-child` `transition-delay`
 
 ### Build Output
 
