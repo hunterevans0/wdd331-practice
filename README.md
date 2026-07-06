@@ -29,7 +29,8 @@ css/
 │   ├── cards.css                # Card, site-hero, feature-grid styles
 │   ├── effects.css              # Visual effects showcase styles
 │   ├── resume.css               # Resume / CV screen styling
-│   └── forms.css                # Contact form styling
+│   ├── forms.css                # Contact form styling
+│   └── icons.css                # Inline SVG icon sizing/layout (color via currentColor)
 └── utilities/                    # Utility classes
     └── utilities.css            # Helper classes (.visually-hidden, .stack)
 ```
@@ -44,7 +45,7 @@ css/
 - **[Container Queries](unit-4/advanced/container-demo.html)** — Unit 4 Advanced assignment: one component restyles itself from its `container-type` context using `@container` rules instead of media queries
 - **[Sticky Module](unit-4/advanced/sticky-demo.html)** — Unit 4 Advanced assignment: sticky section headers, demonstrating and fixing the `overflow: hidden` scroll-container trap with `overflow: clip`
 - **[Type Scale & Fluid Type](unit-5/type-scale-demo.html)** — Unit 5 assignment: a modular type scale with `clamp()`-based fluid sizing
-- **[Resume / CV](resume.html)** — Printable resume page with a dedicated print stylesheet (`css/print.css`): hidden screen chrome, `pt` serif type, link URLs surfaced with `::after`, `break-inside: avoid` on entries, `orphans`/`widows` control, and `print-color-adjust: exact` on the brand header
+- **[Resume / CV](resume.html)** — Printable resume page with a dedicated print stylesheet (`css/print.css`): hidden screen chrome, `pt` serif type, link URLs surfaced with `::after`, `break-inside: avoid` on entries, `orphans`/`widows` control, and `print-color-adjust: exact` on the brand header. Also hosts the **accessible SVG icon system**: a hidden inline Lucide sprite (`<symbol>` + `<use>`) driving the contact rows (phone, email, LinkedIn, GitHub) and the "Back to Home" arrow as decorative icons (`aria-hidden`/`focusable="false"`, text carries the label), plus the theme-toggle rendered as an icon-only control (accessible name via the button's `aria-label`). Icons inherit color through `currentColor`, so they track the light/dark tokens automatically
 - **[Contact Form](contact.html)** — Accessible stub form (label/`for`+`id` pairs) styled with `accent-color`; the message `textarea` uses `field-sizing: content` with `min`/`max-height` guardrails
 - **[Meaningful Motion](unit-6/motion/index.html)** — Unit 6 assignment: explicit-property `transition`s on nav links, buttons, and cards (no `transition: all`) with faster-in/slower-out hover timing; a compositor-only `@keyframes` pulse (`transform`/`opacity`, `infinite alternate`) on the live status badge; all motion gated behind `@media (prefers-reduced-motion: no-preference)` with a static "live" badge fallback. Choose topic: `@starting-style` card entrance, staggered with `:nth-child` `transition-delay`
 

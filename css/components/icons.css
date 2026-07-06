@@ -1,0 +1,26 @@
+/* ========================================
+   ICON SYSTEM
+   Inline SVG sprite icons from Lucide, referenced
+   with <use href="#icon-*">. This layer handles
+   sizing and layout only. Color is inherited from
+   the parent element's `color` via currentColor on
+   the wrapper <svg>, so icons follow the light/dark
+   color tokens automatically.
+   ======================================== */
+
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    flex-shrink: 0;
+}
+
+/* Pair a glyph with adjacent label text: keeps the icon
+   optically centered on the text and adds a consistent gap.
+   Used on the contact links and the "Back to Home" link. */
+.icon-text {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}

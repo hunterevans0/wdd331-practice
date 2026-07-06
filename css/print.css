@@ -117,4 +117,15 @@
     .resume-contact span {
         color: inherit;
     }
+
+    /* Decorative icons add nothing on paper. Dropping them and
+       restoring normal inline flow keeps the ::after URL disclosure
+       (above) reading cleanly after each link's text. */
+    .icon {
+        display: none;
+    }
+
+    .icon-text {
+        display: inline;
+    }
 }
