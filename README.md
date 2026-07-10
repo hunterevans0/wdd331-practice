@@ -1,4 +1,4 @@
-# WDD 331R Practice Site
+# Hunter Evans — Portfolio
 
 **Student:** Hunter Evans  
 **Semester:** Spring 2026  
@@ -6,7 +6,16 @@
 
 ## Overview
 
-This repository demonstrates advanced CSS techniques learned in **WDD 331R: Advanced CSS** at BYU-I. The site uses a modular, maintainable architecture based on **SMACSS** (Scalable and Modular Architecture for CSS) principles. All styles are organized into layers and consolidated into a single minified bundle.
+This is my front-end portfolio, built for **WDD 331R: Advanced CSS** at BYU-I. The
+homepage introduces me to a visitor and curates my strongest work as a set of
+skill-focused projects; each project links to a live demo of the technique it
+teaches. Every page shares a sticky site header and footer so the site reads as
+one product rather than a stack of assignments.
+
+Under the hood it uses a modular, maintainable architecture based on **SMACSS**
+(Scalable and Modular Architecture for CSS) principles. All styles are organized
+into layers and consolidated into a single minified bundle. The whole thing —
+design tokens, layout, motion, and theming — is hand-authored CSS, no framework.
 
 ## Project Structure
 
@@ -26,10 +35,12 @@ css/
 │   └── elements.css             # HTML element styles (body, headings, links, form controls)
 ├── components/                   # Reusable components
 │   ├── theme-toggle.css         # Light/dark/system theme control
+│   ├── site-header.css          # Shared sticky navigation (all portfolio pages)
+│   ├── portfolio.css            # Homepage: hero, Selected Work grid, About, contact CTA, rich footer
 │   ├── cards.css                # Card, site-hero, feature-grid styles
 │   ├── effects.css              # Visual effects showcase styles
 │   ├── resume.css               # Resume / CV screen styling
-│   ├── forms.css                # Contact form styling
+│   ├── forms.css                # Contact form + contact-page layout styling
 │   └── icons.css                # Inline SVG icon sizing/layout (color via currentColor)
 └── utilities/                    # Utility classes
     └── utilities.css            # Helper classes (.visually-hidden, .stack)
@@ -37,7 +48,7 @@ css/
 
 ### Assignment Pages
 
-- **[Home](index.html)** — Landing page showcasing the site architecture and completed assignments
+- **[Home](index.html)** — Portfolio landing page: a bold hero with value proposition and CTAs, a curated **Selected Work** grid (each project framed by the skill it demonstrates, with a pure-CSS preview thumbnail), an About section, and a contact call-to-action
 - **[Custom Properties and Nesting](unit-1/custom-properties/index.html)** — Unit 1 assignment exploring CSS custom properties and native nesting
 - **[Layered Components](unit-2/layered-components/index.html)** — Unit 2 assignment demonstrating the layered component architecture
 - **[Editorial Grid Layout](unit-4/grid-layouts/editorial.html)** — Unit 4 assignment building a responsive article layout with `grid-template-areas`
@@ -132,6 +143,30 @@ every `var()` reference resolves.
 This site supports light, dark, and system color schemes. The theme toggle control is in the top header and preferences are persisted to `localStorage`. Color tokens and theme behavior live in `css/tokens/colors.css` and general tokens live in `css/tokens/variables.css`.
 
 The theme persistence script is `js/theme-preference.js` and should be loaded in the document head before the stylesheet to prevent flashes of the wrong theme.
+
+## JavaScript
+
+Three small, dependency-free scripts progressively enhance the static HTML:
+
+- **`js/theme-preference.js`** — restores the saved light/dark/system choice before
+  first paint and persists changes to `localStorage`.
+- **`js/icon-sprite.js`** — injects the shared Lucide SVG `<symbol>` sprite once per
+  page so the header, footer, résumé, and contact pages can all reference icons
+  with `<use href="#icon-*">` without duplicating markup. Icons still degrade
+  gracefully without JS because visible text carries every label.
+- **`js/contact-form.js`** — enhances the contact form (see below).
+
+## Contact Form
+
+The contact form on `contact.html` works out of the box and is one line away from
+going fully live:
+
+- **Now:** with no backend configured, submitting opens the visitor's mail client
+  pre-filled with their message (the `data-fallback-email` on the `<form>`).
+- **To go live:** create a form at [Formspree](https://formspree.io) and set the
+  form's `action` to your endpoint (e.g. `https://formspree.io/f/xxxxxxx`).
+  `js/contact-form.js` then submits with `fetch()` and shows an inline,
+  screen-reader-friendly status message — no other changes needed.
 
 ### Spacing, Typography, and Effects (`css/tokens/variables.css`)
 - **Spacing:** `--spacing-xs` … `--spacing-xl`

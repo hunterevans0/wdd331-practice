@@ -69,3 +69,61 @@
     font-size: var(--font-size-sm);
     margin: 0;
 }
+
+/* ---- Contact page layout: form beside contact methods ---- */
+.contact-layout {
+    display: grid;
+    gap: var(--spacing-xl);
+    align-items: start;
+}
+
+@media (min-width: 52rem) {
+    .contact-layout {
+        grid-template-columns: 1.4fr 1fr;
+    }
+}
+
+.contact-form {
+    max-width: none;
+}
+
+.contact-aside h2 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-methods {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+}
+
+.contact-methods li {
+    margin-top: 0;
+}
+
+.contact-methods a {
+    color: var(--color-text);
+}
+
+.contact-methods a:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+/* Live submission status */
+.form-status {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    min-height: 1.2em;
+}
+
+.form-status:empty {
+    display: none;
+}
+
+.form-status[data-state="info"] { color: var(--color-text-muted); }
+.form-status[data-state="success"] { color: oklch(0.6 0.15 150); }
+.form-status[data-state="error"] { color: oklch(0.6 0.2 25); }
