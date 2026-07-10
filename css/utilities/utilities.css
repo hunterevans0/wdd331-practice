@@ -14,3 +14,10 @@
     display: grid;
     gap: var(--spacing-md);
 }
+
+/* Centered, width-constrained content column. Sections manage their own
+   full-bleed backgrounds; .container keeps their inner content aligned. */
+.container {
+    width: min(92vw, 72rem);
+    margin-inline: auto;
+}

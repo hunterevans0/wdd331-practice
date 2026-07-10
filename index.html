@@ -3,70 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunter Evans — WDD 331R Advanced CSS</title>
+    <title>Hunter Evans — Front-End Developer</title>
+    <meta name="description" content="Hunter Evans is a software engineering student who builds fast, accessible web interfaces with modern, hand-authored CSS — design tokens, fluid type, and resilient layout.">
+    <meta name="author" content="Hunter Evans">
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Hunter Evans — Front-End Developer">
+    <meta property="og:description" content="I build fast, accessible web interfaces with modern, hand-authored CSS.">
+    <meta property="og:url" content="https://hunterevans0.github.io/wdd331-practice/">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
+
     <script src="js/theme-preference.js"></script>
+    <script src="js/icon-sprite.js"></script>
     <link rel="stylesheet" href="dist/styles.css">
 </head>
-<body>
-    <div class="page-shell">
-        <header class="site-hero">
-            <p class="eyebrow">WDD 331R Advanced CSS</p>
-            <button class="theme-toggle-simple" type="button" aria-label="Toggle theme" onclick="window.toggleThemePreference && window.toggleThemePreference()">🌗</button>
-            <h1>Hunter Evans</h1>
-            <p class="hero-copy">A responsive landing page built with shared tokens, layered styles, and reusable components.</p>
-        </header>
+<body class="home">
+    <header class="site-header">
+        <div class="site-header__inner container">
+            <a class="brand" href="index.html">
+                <span class="brand__mark" aria-hidden="true">HE</span>
+                <span class="brand__name">Hunter Evans</span>
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="index.html" aria-current="page">Home</a>
+                <a href="#work">Work</a>
+                <a href="resume.html">Resume</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button class="theme-toggle-simple" type="button" aria-label="Toggle theme"
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false">
+                    <use href="#icon-contrast"></use>
+                </svg>
+            </button>
+        </div>
+    </header>
 
-        <main>
-            <section class="feature-grid">
-                <article class="site-card">
-                    <h2>Completed Assignments</h2>
-                    <ul class="card-list">
-                        <li><a href="unit-1/custom-properties/index.html">Custom Properties and Nesting</a></li>
-                        <li><a href="unit-2/layered-components/index.html">Layered Components</a></li>
-                        <li><a href="unit-2/lightning-css/index.html">Lightning CSS Setup</a></li>
-                        <li><a href="unit-3/visual-effects/index.html">Visual Effects Showcase</a></li>
-                        <li><a href="unit-4/grid-layouts/editorial.html">Editorial Grid Layout</a></li>
-                        <li><a href="unit-4/grid-layouts/cards.html">Responsive Card Grid (Subgrid)</a></li>
+    <main>
+        <!-- ---------- HERO ---------- -->
+        <section class="hero">
+            <div class="hero__grid container">
+                <div class="hero__intro">
+                    <p class="hero__status">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        Available for internships &amp; freelance
+                    </p>
+                    <h1 class="hero__title">
+                        I build fast, accessible
+                        <span class="accent">web interfaces.</span>
+                    </h1>
+                    <p class="hero__copy">
+                        I'm Hunter Evans — a software engineering student at BYU-Idaho who
+                        turns unclear requirements into clean, resilient front-ends using
+                        modern, hand-authored CSS: design tokens, fluid type, and layout
+                        that holds up on any screen.
+                    </p>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="#work">
+                            View my work
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true" focusable="false"><use href="#icon-arrow-right"></use></svg>
+                        </a>
+                        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+                    </div>
+                    <ul class="hero__meta">
+                        <li>C# / .NET</li>
+                        <li>JavaScript</li>
+                        <li>Advanced CSS</li>
+                        <li>Accessibility</li>
                     </ul>
-                    <h2>Unit 4 Advanced</h2>
-                    <ul class="card-list">
-                        <li><a href="unit-4/advanced/container-demo.html">Container Queries</a></li>
-                        <li><a href="unit-4/advanced/sticky-demo.html">Sticky Module</a></li>
-                        
+                </div>
+
+                <!-- CSS-drawn editor panel: shows what the site is built from. -->
+                <div class="hero__panel" aria-hidden="true">
+                    <div class="panel__bar">
+                        <span class="panel__dot"></span>
+                        <span class="panel__dot"></span>
+                        <span class="panel__dot"></span>
+                        <span class="panel__file">tokens.css</span>
+                    </div>
+                    <pre class="panel__body"><span class="tok-comment">/* one system, light &amp; dark */</span>
+:root {
+  <span class="tok-prop">--accent</span>: <span class="tok-fn">oklch</span>(<span class="tok-swatch" style="background:oklch(0.55 0.2 262)"></span>0.55 0.2 262);
+  <span class="tok-prop">--space</span>: <span class="tok-fn">clamp</span>(1rem, 2vw, 2rem);
+  <span class="tok-prop">--surface</span>: <span class="tok-fn">light-dark</span>(<span class="tok-swatch" style="background:#fff"></span>#fff, <span class="tok-swatch" style="background:#222b3a"></span>#222b3a);
+}
+.card {
+  <span class="tok-prop">container-type</span>: inline-size;
+  <span class="tok-prop">background</span>: <span class="tok-fn">var</span>(--surface);
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------- SELECTED WORK ---------- -->
+        <section class="section" id="work">
+            <div class="container">
+                <div class="section__head">
+                    <span class="section__eyebrow">Selected Work</span>
+                    <h2 class="section__title">Things I built to master the platform</h2>
+                    <p class="section__lead">
+                        Each project below is a focused study in a real front-end problem —
+                        not a checklist item. Open any one to see the technique running live.
+                    </p>
+                </div>
+
+                <ul class="work-grid">
+                    <!-- Design system -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-tokens" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span><span></span>
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">OKLCH tokens</li>
+                                <li class="tag">light-dark()</li>
+                            </ul>
+                            <h3 class="project__title">A themeable design system</h3>
+                            <p class="project__desc">
+                                A single set of OKLCH color, spacing, and type tokens drives the
+                                whole site and flips cleanly between light and dark with one
+                                <code>light-dark()</code> layer — no duplicated palettes.
+                            </p>
+                            <a class="project__link" href="unit-2/layered-components/index.html">
+                                View components
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Layout -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-layout" aria-hidden="true">
+                                <i></i><i></i><i></i><i></i><i></i><i></i>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">Grid</li>
+                                <li class="tag">Subgrid</li>
+                                <li class="tag">Container queries</li>
+                            </ul>
+                            <h3 class="project__title">Layout that adapts to context</h3>
+                            <p class="project__desc">
+                                An editorial layout with <code>grid-template-areas</code> and a
+                                card grid that aligns its internals with <code>subgrid</code> —
+                                plus components that restyle from their own container, not the viewport.
+                            </p>
+                            <a class="project__link" href="unit-4/grid-layouts/editorial.html">
+                                View layout
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Typography -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-type" aria-hidden="true">
+                                <b>Aa</b><b>Aa</b><b>Aa</b><b>Aa</b>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">clamp()</li>
+                                <li class="tag">Modular scale</li>
+                            </ul>
+                            <h3 class="project__title">Fluid, readable typography</h3>
+                            <p class="project__desc">
+                                A modular type scale sized with <code>clamp()</code> so headings
+                                and body copy flow smoothly between phone and desktop without a
+                                stack of breakpoints.
+                            </p>
+                            <a class="project__link" href="unit-5/type-scale-demo.html">
+                                View type scale
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Motion -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-motion" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">Transitions</li>
+                                <li class="tag">Reduced-motion</li>
+                            </ul>
+                            <h3 class="project__title">Motion with intent</h3>
+                            <p class="project__desc">
+                                Compositor-only animation on explicit properties (never
+                                <code>transition: all</code>), fully gated behind
+                                <code>prefers-reduced-motion</code> with static fallbacks.
+                            </p>
+                            <a class="project__link" href="unit-6/motion/index.html">
+                                View motion
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Effects -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-effects" aria-hidden="true">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">Filters</li>
+                                <li class="tag">Blend modes</li>
+                            </ul>
+                            <h3 class="project__title">Visual effects showcase</h3>
+                            <p class="project__desc">
+                                Gradients, backdrop and blend modes, and filters composed into
+                                depth and texture — the decorative layer that gives an interface
+                                personality without images.
+                            </p>
+                            <a class="project__link" href="unit-3/visual-effects/index.html">
+                                View effects
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+
+                    <!-- Resume / print -->
+                    <li class="project">
+                        <div class="project__preview">
+                            <div class="pv pv-doc" aria-hidden="true">
+                                <i></i><i></i><i></i><i></i><i></i>
+                            </div>
+                        </div>
+                        <div class="project__body">
+                            <ul class="project__tags">
+                                <li class="tag">Print CSS</li>
+                                <li class="tag">Accessibility</li>
+                            </ul>
+                            <h3 class="project__title">A résumé that prints perfectly</h3>
+                            <p class="project__desc">
+                                One page, two presentations: a themed screen view and a dedicated
+                                print stylesheet that surfaces link URLs, avoids awkward page
+                                breaks, and drops screen chrome for clean paper.
+                            </p>
+                            <a class="project__link" href="resume.html">
+                                View résumé
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-arrow-up-right"></use></svg>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ---------- ABOUT ---------- -->
+        <section class="section about" id="about">
+            <div class="about__grid container">
+                <div class="about__text">
+                    <span class="section__eyebrow">About</span>
+                    <h2 class="section__title">Turning fuzzy requirements into clean interfaces</h2>
+                    <p>
+                        I'm pursuing a <strong>B.S. in Software Engineering</strong> at BYU-Idaho,
+                        building on an associate's in software development. Before that I spent
+                        a semester <strong>tutoring C# and web fundamentals</strong> — reviewing
+                        code, debugging with students, and explaining the "why" until it clicked.
+                    </p>
+                    <p>
+                        That teaching habit shows up in how I write CSS: readable, layered, and
+                        documented, with accessibility and performance treated as requirements,
+                        not afterthoughts. Away from the keyboard you'll find me camping,
+                        fishing, or arguing about movies.
+                    </p>
+                </div>
+                <div class="about__card">
+                    <h3>What I work with</h3>
+                    <ul class="chip-set">
+                        <li>C#</li>
+                        <li>.NET</li>
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>JavaScript</li>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Accessibility</li>
+                        <li>Git</li>
                     </ul>
-                    <h2>Unit 5</h2>
-                    <ul class="card-list">
-                        <li><a href="unit-5/type-scale-demo.html">Type Scale &amp; Fluid Type</a></li>
-                        <li><a href="resume.html">Resume / CV (printable)</a></li>
-                        <li><a href="contact.html">Contact Form</a></li>
-                    </ul>
-                    <h2>Unit 6</h2>
-                    <ul class="card-list">
-                        <li><a href="unit-6/motion/index.html">Meaningful Motion &amp; Reduced-Motion</a></li>
-                    </ul>
-                </article>
+                </div>
+            </div>
+        </section>
 
-                <article class="site-card">
-                    <h2>Choose Topic Example</h2>
-                    <p>This site has a choose-topic style page in the Layered Components assignment. The landing page uses cards, spacing, typography, and shadows from the shared token system.</p>
-                    <a class="card-link" href="unit-2/layered-components/index.html">View Layered Components</a>
-                </article>
-            </section>
+        <!-- ---------- CONTACT CTA ---------- -->
+        <section class="section cta" id="contact">
+            <div class="container">
+                <div class="cta__card">
+                    <span class="section__eyebrow">Contact</span>
+                    <h2 class="cta__title">Let's build something</h2>
+                    <p class="cta__lead">
+                        Open to internships, freelance front-end work, and collaboration.
+                        The fastest way to reach me is email.
+                    </p>
+                    <div class="cta__links">
+                        <a class="btn btn--primary" href="mailto:this@hunterevans.net">
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg>
+                            Email me
+                        </a>
+                        <a class="btn btn--ghost" href="contact.html">Use the contact form</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
-            <section class="site-card about-card">
-                <h2>About</h2>
-                <p>I am a software engineering major at BYUI. I enjoy camping, fishing, video games, and movies. This site is my weekly progress tracker for learning advanced CSS techniques while practicing layout, components, and design tokens.</p>
-            </section>
-
-            <section class="overview site-card">
-                <h2>Why this practice site?</h2>
-                <p>This homepage uses three token categories: color, spacing, and typography, plus radius and shadow for visual structure. The component layer keeps card styling separated and reusable across the site.</p>
-            </section>
-        </main>
-
-        <footer class="site-footer">
-            <p>© 2026 Hunter Evans — WDD 331R Advanced CSS</p>
-        </footer>
-    </div>
+    <footer class="site-footer-rich">
+        <div class="site-footer-rich__inner container">
+            <p class="footer-copy">© 2026 Hunter Evans — designed &amp; built with hand-authored CSS.</p>
+            <ul class="footer-social">
+                <li><a href="https://github.com/hunterevans0" aria-label="GitHub">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-github"></use></svg></a></li>
+                <li><a href="https://www.linkedin.com/in/hunterevans0" aria-label="LinkedIn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-linkedin"></use></svg></a></li>
+                <li><a href="mailto:this@hunterevans.net" aria-label="Email">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

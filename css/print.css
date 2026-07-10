@@ -39,10 +39,12 @@
     /* Hide navigation and interactive chrome that has no purpose on paper. */
     .no-print,
     .back-home,
+    .site-header,
     .site-nav,
     .theme-toggle-simple,
     details.theme-menu,
     .site-footer,
+    .site-footer-rich,
     footer {
         display: none !important;
     }

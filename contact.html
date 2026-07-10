@@ -4,57 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hunter Evans — Contact</title>
+    <meta name="description" content="Get in touch with Hunter Evans — front-end developer and software engineering student. Send a message or reach out by email, LinkedIn, or GitHub.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E">
     <script src="js/theme-preference.js"></script>
+    <script src="js/icon-sprite.js"></script>
+    <script src="js/contact-form.js" defer></script>
     <link rel="stylesheet" href="dist/styles.css">
 </head>
 <body>
-    <div class="page-shell">
-        <nav class="resume-nav no-print" aria-label="Site">
-            <a class="back-home" href="index.html">&larr; Back to Home</a>
+    <header class="site-header">
+        <div class="site-header__inner container">
+            <a class="brand" href="index.html">
+                <span class="brand__mark" aria-hidden="true">HE</span>
+                <span class="brand__name">Hunter Evans</span>
+            </a>
+            <nav class="site-nav" aria-label="Primary">
+                <a href="index.html">Home</a>
+                <a href="index.html#work">Work</a>
+                <a href="resume.html">Resume</a>
+                <a href="contact.html" aria-current="page">Contact</a>
+            </nav>
             <button class="theme-toggle-simple" type="button" aria-label="Toggle theme"
-                onclick="window.toggleThemePreference && window.toggleThemePreference()">🌗</button>
-        </nav>
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false"><use href="#icon-contrast"></use></svg>
+            </button>
+        </div>
+    </header>
 
-        <main>
-            <header class="site-hero">
-                <p class="eyebrow">WDD 331R Advanced CSS</p>
-                <h1>Contact</h1>
-                <p class="hero-copy">Have a question or want to connect? Send a message below.</p>
-            </header>
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section__head">
+                    <span class="section__eyebrow">Contact</span>
+                    <h1 class="section__title">Let's talk</h1>
+                    <p class="section__lead">
+                        Have a role, a project, or a question? Send a message and I'll get
+                        back to you — usually within a day or two.
+                    </p>
+                </div>
 
-            <section class="site-card">
-                <h2>Send a message</h2>
-                <form class="contact-form" action="#" method="post" novalidate>
-                    <div class="form-field">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" autocomplete="name" required>
-                    </div>
+                <div class="contact-layout">
+                    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID"
+                          method="post" data-fallback-email="this@hunterevans.net">
+                        <div class="form-field">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" autocomplete="name" required>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" autocomplete="email" required>
-                    </div>
+                        <div class="form-field">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" autocomplete="email" required>
+                        </div>
 
-                    <div class="form-field">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="4"
-                            placeholder="Type your message — this box grows as you type."></textarea>
-                    </div>
+                        <div class="form-field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required
+                                placeholder="Type your message — this box grows as you type."></textarea>
+                        </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" id="subscribe" name="subscribe" value="yes">
-                        <label for="subscribe">Subscribe to occasional updates</label>
-                    </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+                            <label for="subscribe">Subscribe to occasional updates</label>
+                        </div>
 
-                    <button class="form-submit" type="submit">Send message</button>
-                    <p class="form-note">This form is a styling demo and does not submit anywhere.</p>
-                </form>
-            </section>
-        </main>
+                        <button class="form-submit" type="submit">Send message</button>
+                        <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+                    </form>
 
-        <footer class="site-footer">
-            <p>&copy; 2026 Hunter Evans — WDD 331R Advanced CSS</p>
-        </footer>
-    </div>
+                    <aside class="contact-aside">
+                        <h2>Other ways to reach me</h2>
+                        <ul class="contact-methods">
+                            <li><a class="icon-text" href="mailto:this@hunterevans.net">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg>
+                                this@hunterevans.net
+                            </a></li>
+                            <li><a class="icon-text" href="https://www.linkedin.com/in/hunterevans0">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-linkedin"></use></svg>
+                                linkedin.com/in/hunterevans0
+                            </a></li>
+                            <li><a class="icon-text" href="https://github.com/hunterevans0">
+                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                     aria-hidden="true" focusable="false"><use href="#icon-github"></use></svg>
+                                github.com/hunterevans0
+                            </a></li>
+                        </ul>
+                        <p class="form-note">
+                            Prefer email? The button above opens your mail app pre-filled until
+                            the form's live endpoint is connected.
+                        </p>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer-rich">
+        <div class="site-footer-rich__inner container">
+            <p class="footer-copy">© 2026 Hunter Evans — designed &amp; built with hand-authored CSS.</p>
+            <ul class="footer-social">
+                <li><a href="https://github.com/hunterevans0" aria-label="GitHub">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-github"></use></svg></a></li>
+                <li><a href="https://www.linkedin.com/in/hunterevans0" aria-label="LinkedIn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-linkedin"></use></svg></a></li>
+                <li><a href="mailto:this@hunterevans.net" aria-label="Email">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg></a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>
