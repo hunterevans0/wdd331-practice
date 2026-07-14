@@ -1,0 +1,128 @@
+/* ==========================================================================
+   SITE CHROME — shared portfolio header
+   One self-contained header dropped onto every assignment page so the whole
+   portfolio reads as one product instead of a stack of separate demos.
+
+   Everything here is namespaced under .pf- so it can never collide with the
+   bespoke styles each demo page ships (several define their own .site-header
+   or .site-nav). The file pulls in the design tokens directly, so the header
+   themes light/dark on any page — even the ones that don't load the full
+   site bundle. Link it with a single <link>; the token @imports resolve
+   relative to this file, so they work from any page depth.
+   ========================================================================== */
+
+@import url('./tokens/colors.css');
+@import url('./tokens/variables.css');
+
+.pf-header {
+    background-color: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    font-family: var(--font-family-sans);
+}
+
+.pf-header__inner {
+    box-sizing: border-box;
+    width: min(92vw, 72rem);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-block: var(--spacing-sm);
+}
+
+/* Brand: monogram tile + wordmark, doubles as the back-to-home link. */
+.pf-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-right: auto;
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.pf-brand:hover {
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.pf-brand__mark {
+    display: grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--color-accent), oklch(0.6 0.2 300));
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    box-shadow: var(--shadow-sm);
+}
+
+.pf-brand__name {
+    font-size: var(--font-size-md);
+    letter-spacing: -0.01em;
+}
+
+/* Primary nav */
+.pf-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(var(--spacing-xs), 2vw, var(--spacing-md));
+}
+
+.pf-nav a {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: color var(--transition-base), background-color var(--transition-base);
+}
+
+.pf-nav a:hover {
+    color: var(--color-text);
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+    text-decoration: none;
+}
+
+/* Theme changer — same OKLCH contrast glyph used on the home and résumé
+   headers, driven by window.toggleThemePreference() from theme-preference.js. */
+.pf-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: calc(var(--icon-size-md) + var(--spacing-md));
+    height: calc(var(--icon-size-md) + var(--spacing-md));
+    background: var(--theme-toggle-bg);
+    color: var(--header-text);
+    border: 1px solid var(--theme-toggle-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--icon-size-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.pf-theme-toggle:hover {
+    background: var(--theme-toggle-bg-hover);
+    border-color: var(--theme-toggle-border-hover);
+}
+
+.pf-theme-toggle .icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+}
+
+/* Drop the wordmark on very small screens; keep the monogram tap target. */
+@media (max-width: 30rem) {
+    .pf-brand__name {
+        display: none;
+    }
+}

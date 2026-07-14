@@ -9,8 +9,10 @@
 This is my front-end portfolio, built for **WDD 331R: Advanced CSS** at BYU-I. The
 homepage introduces me to a visitor and curates my strongest work as a set of
 skill-focused projects; each project links to a live demo of the technique it
-teaches. Every page shares a sticky site header and footer so the site reads as
-one product rather than a stack of assignments.
+teaches. The top-level pages (home, résumé, contact) share a sticky site header
+and rich footer, and **every assignment page carries the same shared header** —
+brand wordmark, back-to-home nav, and the light/dark theme control — so the site
+reads as one product rather than a stack of assignments.
 
 Under the hood it uses a modular, maintainable architecture based on **SMACSS**
 (Scalable and Modular Architecture for CSS) principles. All styles are organized
@@ -26,6 +28,7 @@ The stylesheet is organized into layers, each with a specific responsibility:
 ```
 css/
 ├── main.css                      # Import manifest (controls cascade order)
+├── site-chrome.css               # Self-contained shared header (namespaced .pf-*) dropped onto every assignment page
 ├── print.css                     # @media print rules for resume.html
 ├── tokens/                       # Design tokens (shared values)
 │   ├── colors.css               # OKLCH seeds + light-dark() semantic tokens
@@ -46,11 +49,21 @@ css/
     └── utilities.css            # Helper classes (.visually-hidden, .stack)
 ```
 
+### How the portfolio is organized
+
+Navigation is two-tiered so nothing is buried and nothing is orphaned:
+
+1. **Featured work** — the homepage **Selected Work** grid highlights the six strongest projects, each framed by the CSS skill it demonstrates.
+2. **Full coursework index** — a "Every assignment, grouped by unit" section on the homepage links *every* `unit-*` page, grouped by unit, so all coursework is reachable in one click.
+3. **Shared header everywhere** — every assignment page loads `css/site-chrome.css`, which renders the same header (brand → home, primary nav, and the SVG light/dark theme toggle). That header is each deep page's back-to-home path, and it makes the separate demos read as one site.
+
 ### Assignment Pages
 
-- **[Home](index.html)** — Portfolio landing page: a bold hero with value proposition and CTAs, a curated **Selected Work** grid (each project framed by the skill it demonstrates, with a pure-CSS preview thumbnail), an About section, and a contact call-to-action
-- **[Custom Properties and Nesting](unit-1/custom-properties/index.html)** — Unit 1 assignment exploring CSS custom properties and native nesting
-- **[Layered Components](unit-2/layered-components/index.html)** — Unit 2 assignment demonstrating the layered component architecture
+- **[Home](index.html)** — Portfolio landing page: a bold hero with value proposition and CTAs, a curated **Selected Work** grid (each project framed by the skill it demonstrates, with a pure-CSS preview thumbnail), the full coursework-by-unit index, an About section, and a contact call-to-action
+- **[Ward Activity Board](unit-1/custom-properties/index.html)** — Unit 1 assignment exploring CSS custom properties and native nesting
+- **[Scripture Study Companion](unit-2/layered-components/index.html)** — Unit 2 assignment demonstrating the layered component architecture
+- **[Lightning CSS Setup](unit-2/lightning-css/index.html)** — Unit 2 assignment: a walkthrough page for the Lightning CSS build tooling, styled straight from the shared design tokens
+- **[Visual Effects Showcase](unit-3/visual-effects/index.html)** — Unit 3 assignment: gradients, shadows, blend modes, and filters composed for depth and texture
 - **[Editorial Grid Layout](unit-4/grid-layouts/editorial.html)** — Unit 4 assignment building a responsive article layout with `grid-template-areas`
 - **[Responsive Card Grid](unit-4/grid-layouts/cards.html)** — Unit 4 assignment building a fluid card grid with `auto-fit` and `minmax()`, upgraded to align card internals across each row with `grid-template-rows: subgrid`
 - **[Container Queries](unit-4/advanced/container-demo.html)** — Unit 4 Advanced assignment: one component restyles itself from its `container-type` context using `@container` rules instead of media queries
@@ -151,9 +164,10 @@ Three small, dependency-free scripts progressively enhance the static HTML:
 - **`js/theme-preference.js`** — restores the saved light/dark/system choice before
   first paint and persists changes to `localStorage`.
 - **`js/icon-sprite.js`** — injects the shared Lucide SVG `<symbol>` sprite once per
-  page so the header, footer, résumé, and contact pages can all reference icons
-  with `<use href="#icon-*">` without duplicating markup. Icons still degrade
-  gracefully without JS because visible text carries every label.
+  page so every page — including the shared assignment-page header — can reference
+  icons (such as the theme-toggle contrast glyph) with `<use href="#icon-*">`
+  without duplicating markup. Icons still degrade gracefully without JS because
+  visible text carries every label.
 - **`js/contact-form.js`** — enhances the contact form (see below).
 
 ## Contact Form
