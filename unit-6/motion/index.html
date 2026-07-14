@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Activity Dashboard</title>
+    <script src="../../js/theme-preference.js"></script>
+    <script src="../../js/icon-sprite.js"></script>
     <link rel="stylesheet" href="../../dist/styles.css">
+    <link rel="stylesheet" href="../../css/site-chrome.css">
     <link rel="stylesheet" href="motion.css">
 </head>
 <body>
-    <header class="site-header">
-        <span class="site-name">portfolio</span>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Projects</a>
-            <a href="#">About</a>
-            <a href="#" class="nav-cta">Contact</a>
-        </nav>
+    <header class="pf-header">
+        <div class="pf-header__inner">
+            <a class="pf-brand" href="../../index.html">
+                <span class="pf-brand__mark" aria-hidden="true">HE</span>
+                <span class="pf-brand__name">Hunter Evans</span>
+            </a>
+            <nav class="pf-nav" aria-label="Primary">
+                <a href="../../index.html">Home</a>
+                <a href="../../index.html#work">Work</a>
+                <a href="../../resume.html">Resume</a>
+                <a href="../../contact.html">Contact</a>
+            </nav>
+            <button class="pf-theme-toggle" type="button" aria-label="Toggle theme"
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false"><use href="#icon-contrast"></use></svg>
+            </button>
+        </div>
     </header>
     <main>
         <section class="dashboard-header">

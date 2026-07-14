@@ -5,13 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ward Activity Board</title>
     <script src="../../js/theme-preference.js"></script>
+    <script src="../../js/icon-sprite.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../../css/site-chrome.css">
 </head>
 <body>
-    <nav class="site-nav">
-        <a href="../../index.html">&larr; Home</a>
-    </nav>
-    <button class="theme-toggle-simple" type="button" aria-label="Toggle theme" onclick="window.toggleThemePreference && window.toggleThemePreference()">🌗</button>
+    <header class="pf-header">
+        <div class="pf-header__inner">
+            <a class="pf-brand" href="../../index.html">
+                <span class="pf-brand__mark" aria-hidden="true">HE</span>
+                <span class="pf-brand__name">Hunter Evans</span>
+            </a>
+            <nav class="pf-nav" aria-label="Primary">
+                <a href="../../index.html">Home</a>
+                <a href="../../index.html#work">Work</a>
+                <a href="../../resume.html">Resume</a>
+                <a href="../../contact.html">Contact</a>
+            </nav>
+            <button class="pf-theme-toggle" type="button" aria-label="Toggle theme"
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false"><use href="#icon-contrast"></use></svg>
+            </button>
+        </div>
+    </header>
 
     <header class="board-header">
         <h1>Riverside 4th Ward</h1>

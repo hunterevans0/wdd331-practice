@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lightning CSS Setup</title>
     <script src="../../js/theme-preference.js"></script>
+    <script src="../../js/icon-sprite.js"></script>
     <link rel="stylesheet" href="../../css/tokens/colors.css">
     <link rel="stylesheet" href="../../css/tokens/variables.css">
     <link rel="stylesheet" href="../../css/components/theme-toggle.css">
+    <link rel="stylesheet" href="../../css/site-chrome.css">
     <style>
         body {
             font-family: var(--font-family-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
@@ -73,11 +75,27 @@
     </style>
 </head>
 <body>
+    <header class="pf-header">
+        <div class="pf-header__inner">
+            <a class="pf-brand" href="../../index.html">
+                <span class="pf-brand__mark" aria-hidden="true">HE</span>
+                <span class="pf-brand__name">Hunter Evans</span>
+            </a>
+            <nav class="pf-nav" aria-label="Primary">
+                <a href="../../index.html">Home</a>
+                <a href="../../index.html#work">Work</a>
+                <a href="../../resume.html">Resume</a>
+                <a href="../../contact.html">Contact</a>
+            </nav>
+            <button class="pf-theme-toggle" type="button" aria-label="Toggle theme"
+                onclick="window.toggleThemePreference && window.toggleThemePreference()">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true" focusable="false"><use href="#icon-contrast"></use></svg>
+            </button>
+        </div>
+    </header>
     <div class="page-shell">
-        <nav>
-            <a href="../../index.html">&larr; Back to Home</a>
-            <button class="theme-toggle-simple" type="button" aria-label="Toggle theme" onclick="window.toggleThemePreference && window.toggleThemePreference()">🌗</button>
-        </nav>
         <header>
             <p class="eyebrow">BYU–Idaho • WDD 331R • Advanced CSS</p>
             <h1>Lightning CSS Setup</h1>
